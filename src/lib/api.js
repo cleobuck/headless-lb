@@ -13,13 +13,13 @@ const _fetch = async (url) => {
   }
 };
 
-export const fetchPosts = () => {
-  return _fetch("posts?per_page=1");
+export const fetchPosts = (lang) => {
+  return _fetch(`posts?per_page=1&lang=${lang}`);
 };
 
-export const fetchCategories = async () => {
+export const fetchCategories = async (lang) => {
   const categories = await _fetch(
-    "categories?_fields=id,name,parent&per_page=100&lang=fr"
+    `categories?_fields=id,name,parent&per_page=100&lang=${lang}`
   );
 
   return categories ? formatCategories(categories) : undefined;

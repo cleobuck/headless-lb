@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export function formatCategories(categories) {
   // Create a map to store categories by their ID for quick lookup
 
@@ -45,4 +47,24 @@ export function formatCategories(categories) {
   );
 
   return formattedCategories;
+}
+
+export function useLanguage(initialLanguage) {
+  // Store language in localStorage
+
+  const [language, setLanguage] = useState(initialLanguage);
+
+  useEffect(() => {
+    const currentLanguage = localStorage.getItem("lb-language");
+
+    if (currentLanguage !== language) {
+      localStorage.setItem("lb-language", language);
+      // Store language in cookie
+      document.cookie = `lb-language=${language}; path=/`;
+      // Reload the page to reflect the change
+      window.location.reload();
+    }
+  }, [language]);
+
+  return [language, setLanguage];
 }
