@@ -1,0 +1,45 @@
+@import "@styles/variables/colors.less";
+
+@headerHeight: 80px;
+
+.header {
+  height: @headerHeight;
+  width: 100vw;
+  background: @red;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.bars {
+  margin-left: auto;
+  fill: white;
+  width: 22px;
+}
+
+.magnifyingGlass {
+  width: 18px;
+  fill: white;
+  margin: 0 5px;
+  margin-left: 15px;
+}
+
+.nav {
+  position: absolute;
+  top: @headerHeight;
+  left: 0;
+  z-index: 10;
+  color: white;
+  background: @red;
+  width: 100%;
+  ul {
+    list-style-type: none;
+  }
+}

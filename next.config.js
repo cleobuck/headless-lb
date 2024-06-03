@@ -1,0 +1,20 @@
+const path = require("path");
+const withLess = require("next-with-less");
+
+module.exports = withLess({
+  // reactStrictMode: true,
+  lessLoaderOptions: {},
+  webpack(config) {
+    // Define path alias for styles directory
+    config.resolve.alias["@styles"] = path.join(__dirname, "src/assets/styles");
+
+    // Add webpack rule for SVG files
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+});
