@@ -1,0 +1,49 @@
+@import "@styles/variables/colors.less";
+
+.footer {
+  background: @darkGrey;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 50px 20px;
+  font-family: "Roboto";
+}
+
+.column {
+  width: 50%;
+  margin-top: 20px;
+}
+
+.columnHeader {
+  color: white;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.footerLink {
+  text-decoration: none;
+  color: @greyFont;
+  line-height: 1.5;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.columnList {
+  list-style-type: none;
+}
+
+.statement {
+  margin-top: 50px;
+  padding: 20px 0px;
+  padding-bottom: 0px;
+
+  color: white;
+  font-size: 10px;
+  border-top: 1px solid white;
+  line-height: 2;
+  text-align: center;
+}

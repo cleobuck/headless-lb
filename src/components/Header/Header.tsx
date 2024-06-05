@@ -42,13 +42,7 @@ const Nav = ({ categories, initialLanguage }) => {
           .filter((category) => ![1, 9].includes(category.id))
           .reverse()
           .map((category) => (
-            <li>
-              {category.name}
-
-              {category.children && (
-                <DropDownNav categories={category.children} />
-              )}
-            </li>
+            <CategoryItem category={category} />
           ))}
 
         <li> Casino </li>
@@ -73,12 +67,20 @@ const Nav = ({ categories, initialLanguage }) => {
   );
 };
 
-const DropDownNav = ({ categories }) => {
+const CategoryItem = ({ category }) => {
+  const [isSecondNavOpen, showSecondNav] = useState(false);
   return (
-    <ul>
-      {categories.map((category) => (
-        <li> {category.name} </li>
-      ))}
-    </ul>
+    <>
+      <li onClick={() => showSecondNav((isShown) => !isShown)}>
+        {category.name}
+        {category.children && isSecondNavOpen && (
+          <ul>
+            {category.children.map((category) => (
+              <li> {category.name} </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    </>
   );
 };
