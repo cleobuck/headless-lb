@@ -1,2 +1,162 @@
-.featuredPosts {
+.featuredImagesTitle {
+  color: white;
+  font-family: "Raleway";
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.featuredItem {
+  font-family: "raleway";
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  padding: 20px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 15px;
+
+  .metaData {
+    h3 {
+      margin: 8px 0;
+      font-weight: 500;
+    }
+    color: white;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .category {
+      font-weight: 800;
+      font-size: 11px;
+      display: block;
+    }
+
+    .date {
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+  .figure {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    overflow: hidden;
+    min-width: 100%;
+    min-height: 100%;
+
+    z-index: -1;
+    background: red;
+    .featuredImage {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(
+        178.59deg,
+        rgba(0, 0, 0, 0) -60.34%,
+        rgba(0, 0, 0, 0.7) 98.94%
+      );
+    }
+  }
+
+  &:hover {
+    .figure {
+      transition: 1s;
+      display: block;
+      transform: translate(-50%, -50%) scale(1.2);
+      cursor: pointer;
+    }
+  }
+}
+
+.secondaryArticlesContainer {
+  .metaData {
+    height: 100%;
+  }
+}
+
+.firstFeaturedItem {
+  .figure {
+    height: 100%;
+  }
+}
+
+.featuredImagesTitle {
+  &.light-mode {
+    color: black !important;
+  }
+}
+
+@media (max-width: 767.9px) {
+  .secondaryArticlesContainer {
+    overflow-x: scroll;
+  }
+
+  .featuredItem {
+    color: white;
+    margin-bottom: 16px;
+    h3 {
+      font-size: 14px;
+      max-width: 80%;
+    }
+  }
+
+  .firstFeaturedItem {
+    height: 70vw;
+    font-size: 15px;
+    h3 {
+      font-size: 14px;
+      max-width: 100%;
+    }
+  }
+
+  .secondaryFeaturedItem {
+    font-size: 10px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .featuredPosts {
+    display: flex;
+    gap: 16px;
+  }
+  .secondaryArticlesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .firstFeaturedItem {
+    flex: 0 0 50%;
+  }
+
+  .featuredItem {
+    h3 {
+      color: white;
+      font-size: 28px;
+    }
+  }
+
+  .secondaryFeaturedItem {
+    font-size: 12px;
+    height: 153px;
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
 }

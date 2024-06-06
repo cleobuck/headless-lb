@@ -27,4 +27,7 @@ module.exports = withLess({
       },
     ];
   },
+  images: {
+    domains: ["news.ladbrokes.be"], // Add the allowed domain here
+  },
 });

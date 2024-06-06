@@ -48,19 +48,21 @@ const HomePage = ({
     <div>
       <Header categories={categories} language={language} />
 
-      <FeaturedPosts featuredPosts={featuredPosts} />
+      <div className="content">
+        <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
-      <section className={styling.postBlock}>
-        <MostRecentPosts mostRecentPosts={mostRecentPosts} />
-        <MostPopularPosts mostPopularPosts={mostPopularPosts} />
-      </section>
-      {/* <ul>
+        <section className={styling.postBlock}>
+          <MostRecentPosts mostRecentPosts={mostRecentPosts} />
+          <MostPopularPosts mostPopularPosts={mostPopularPosts} />
+        </section>
+        {/* <ul>
         {posts.map((post) => (
           <li key={post.id}>
             <a href={`/posts/${post.slug}`}>{post.title.rendered}</a>
           </li>
         ))}
       </ul> */}
+      </div>
 
       <Footer language={language} />
     </div>
