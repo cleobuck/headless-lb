@@ -8,6 +8,7 @@ const _fetch = async (url, custom = false) => {
 
   try {
     const response = await axios.get(fullUrl);
+
     return response.data;
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -21,6 +22,14 @@ export const fetchPosts = (lang) => {
 
 export const fetchFeaturedPosts = (lang) => {
   return _fetch(`featured-posts?lang=${lang}`, true);
+};
+
+export const fetchMostRecentPosts = (lang) => {
+  return _fetch(`most-recent-posts?lang=${lang}`, true);
+};
+
+export const fetchMostPopularPosts = (lang) => {
+  return _fetch(`most-popular-posts?lang=${lang}`, true);
 };
 
 export const fetchCategories = async (lang) => {
