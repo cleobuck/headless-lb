@@ -52,8 +52,14 @@ const HomePage = ({
         <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
         <section className={styling.postBlock}>
-          <MostRecentPosts mostRecentPosts={mostRecentPosts} />
-          <MostPopularPosts mostPopularPosts={mostPopularPosts} />
+          <MostRecentPosts
+            mostRecentPosts={mostRecentPosts}
+            language={language}
+          />
+          <MostPopularPosts
+            mostPopularPosts={mostPopularPosts}
+            language={language}
+          />
         </section>
         {/* <ul>
         {posts.map((post) => (

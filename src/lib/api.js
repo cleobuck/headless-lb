@@ -34,7 +34,7 @@ export const fetchMostPopularPosts = (lang) => {
 
 export const fetchCategories = async (lang) => {
   const categories = await _fetch(
-    `categories?_fields=id,name,parent&per_page=100&lang=${lang}`
+    `categories?_fields=id,name,parent,slug&per_page=100&lang=${lang}`
   );
 
   return categories ? formatCategories(categories) : undefined;

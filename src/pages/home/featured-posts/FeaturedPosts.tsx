@@ -2,6 +2,7 @@ import React from "react";
 import styling from "./FeaturedPosts.module.less";
 type Props = {};
 import Image from "next/image";
+import { createArticleLink } from "@/lib/utils";
 
 export default function FeaturedPosts({ featuredPosts, language }: Props) {
   return (
@@ -32,7 +33,7 @@ const Article = ({ article, first = false }) => {
         first ? styling.firstFeaturedItem : styling.secondaryFeaturedItem
       }`}
       onClick={() => {
-        window.location.href = article.permalink;
+        window.location.href = createArticleLink(article);
       }}
     >
       <header className={styling.metaData}>

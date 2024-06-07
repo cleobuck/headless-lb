@@ -17,6 +17,7 @@ export function formatCategories(categories) {
     const formattedCategory = {
       id: category.id,
       name: category.name,
+      slug: category.slug,
       children: [],
     };
 
@@ -68,3 +69,20 @@ export function useLanguage(initialLanguage) {
 
   return [language, setLanguage];
 }
+
+export const createArticleLink = (data) => {
+  const dateStr = data.date.trim();
+  const dateObj = new Date(dateStr);
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+
+  let title = data.title.toLowerCase();
+  title = title.replace(/[^a-z0-9\s]/g, ""); // Remove non-alphanumeric characters except spaces
+  title = title.replace(/\s+/g, "-"); // Replace spaces with hyphens
+
+  // Construct the URL
+  const url = `https://news.ladbrokes.be/${year}/${month}/${day}/${title}/`;
+
+  return url;
+};

@@ -1,0 +1,101 @@
+.postItem {
+  display: flex;
+  align-items: center;
+  height: 125px;
+  color: white;
+  font-family: "Raleway";
+  width: 100%;
+  gap: 16px;
+  cursor: pointer;
+
+  margin-bottom: 16px;
+  .figure {
+    height: 125px;
+    width: 125px;
+    flex: 0 0 125px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+    margin-right: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    img {
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
+}
+
+.metaData {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 125px;
+  flex: 1;
+  .category {
+    font-size: 11px;
+    color: #f01e28;
+    font-weight: 700;
+  }
+  .title {
+    font-size: 15px;
+    margin: 0;
+    font-weight: 800;
+  }
+}
+
+.excerpt {
+  font-size: 14px;
+  margin: 0;
+  flex: 1; /* Allow paragraph to grow to fill available space */
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+}
+
+.date {
+  font-size: 14px;
+}
+
+.mostRecentPosts {
+  h2 {
+    color: white;
+    font-weight: 700;
+    font-size: 25px;
+    font-family: "Raleway";
+    margin: 20px 0;
+  }
+  &.lightMode {
+    .loop {
+      background: black;
+      color: white;
+    }
+    h2 {
+      color: black;
+    }
+    .postItem {
+      color: black;
+    }
+  }
+}
+
+@media (max-width: 767.9px) {
+  .excerpt {
+    display: none;
+  }
+  .title {
+    font-size: 15px;
+  }
+}
+
+.titleAndCategory {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

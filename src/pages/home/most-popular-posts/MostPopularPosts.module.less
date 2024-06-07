@@ -1,0 +1,83 @@
+.mostPopularPosts {
+  color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 16px;
+  background: #303030;
+  line-height: 22px;
+  h2 {
+    color: white;
+    font-weight: 700;
+    font-family: "Raleway";
+  }
+
+  .number {
+    width: 43px;
+    flex: 0 0 43px;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-right: 1px solid rgba(237, 237, 237, 0.3);
+    font-size: 24px;
+    align-self: stretch;
+    font-weight: 600;
+  }
+
+  .article {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: "Raleway";
+    width: 100%;
+    gap: 16px;
+    cursor: pointer;
+  }
+
+  .metaData {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .category {
+    font-size: 11px;
+    color: #f01e28;
+    font-weight: 700;
+  }
+  .title {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .date {
+    font-size: 14px;
+  }
+
+  &.lightMode {
+    background: white;
+    .number {
+      border-right: 1px solid rgba(237, 237, 237, 1);
+    }
+    .article {
+      color: black;
+    }
+    h2 {
+      color: black;
+    }
+  }
+}
+
+@media (max-width: 767.9px) {
+  .mostPopularPosts {
+    display: flex;
+    overflow-x: scroll;
+    .article {
+      height: 112px;
+      width: 70vw;
+    }
+  }
+}

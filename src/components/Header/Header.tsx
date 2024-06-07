@@ -11,6 +11,7 @@ type Props = {};
 
 export default function Header({ categories, language }: Props) {
   const [isNavShown, showNav] = useState(false);
+
   return (
     <header
       className={`${styling.header} ${isNavShown ? styling.toggledHeader : ""}`}
@@ -75,8 +76,15 @@ const CategoryItem = ({ category }) => {
         {category.name}
         {category.children && isSecondNavOpen && (
           <ul>
-            {category.children.map((category) => (
-              <li> {category.name} </li>
+            {category.children.map((subCategory) => (
+              <li
+                onClick={() => {
+                  window.location = `https://news.ladbrokes.be/category/category/${category.slug}/${subCategory.slug}/`;
+                }}
+              >
+                {" "}
+                {subCategory.name}{" "}
+              </li>
             ))}
           </ul>
         )}
