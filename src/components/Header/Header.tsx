@@ -6,6 +6,7 @@ import MagnifyingGlass from "@/assets/images/icons/solid/magnifying-glass.svg";
 import Image from "next/image";
 import cookie from "cookie";
 import { useLanguage } from "@/lib/utils";
+import { useRouter } from "next/router";
 
 type Props = {};
 
@@ -70,6 +71,9 @@ const Nav = ({ categories, initialLanguage }) => {
 
 const CategoryItem = ({ category }) => {
   const [isSecondNavOpen, showSecondNav] = useState(false);
+
+  const router = useRouter();
+
   return (
     <>
       <li onClick={() => showSecondNav((isShown) => !isShown)}>

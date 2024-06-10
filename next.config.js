@@ -18,16 +18,15 @@ module.exports = withLess({
 
     return config;
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/home",
-        permanent: true,
-      },
-    ];
-  },
+
   images: {
-    domains: ["news.ladbrokes.be"], // Add the allowed domain here
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "news.ladbrokes.be",
+        port: "", // typically left empty for default ports
+        pathname: "/**", // match all paths under the domain
+      },
+    ],
   },
 });

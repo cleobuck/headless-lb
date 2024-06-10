@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export function formatCategories(categories) {
@@ -52,6 +53,8 @@ export function formatCategories(categories) {
 
 export function useLanguage(initialLanguage) {
   // Store language in localStorage
+
+  const router = useRouter();
 
   const [language, setLanguage] = useState(initialLanguage);
 

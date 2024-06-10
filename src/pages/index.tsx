@@ -4,14 +4,15 @@ import {
   fetchFeaturedPosts,
   fetchMostPopularPosts,
   fetchMostRecentPosts,
-} from "../../lib/api";
+} from "../lib/api";
 import Header from "@/components/Header/Header";
 import cookie from "cookie";
 import Footer from "@/components/Footer/Footer";
-import MostPopularPosts from "./most-popular-posts/MostPopularPosts";
-import FeaturedPosts from "./featured-posts/FeaturedPosts";
+
 import styling from "./index.module.less";
-import MostRecentPosts from "./most-recent-posts/MostRecentPosts";
+import FeaturedPosts from "@/components/home-components/featured-posts/FeaturedPosts";
+import MostPopularPosts from "@/components/home-components/most-popular-posts/MostPopularPosts";
+import MostRecentPosts from "@/components/home-components/most-recent-posts/MostRecentPosts";
 export async function getServerSideProps(context) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 

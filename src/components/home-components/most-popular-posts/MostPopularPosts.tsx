@@ -12,8 +12,8 @@ export default function MostPopularPosts({
         {language === "fr" ? "Les plus populaires" : "De populairste artikels"}
       </h2>
 
-      {mostPopularPosts?.map((article) => (
-        <Article article={article} />
+      {mostPopularPosts?.map((article, index) => (
+        <Article article={article} key={index} />
       ))}
     </section>
   );

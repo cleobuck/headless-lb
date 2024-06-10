@@ -20,6 +20,10 @@ export const fetchPosts = (lang) => {
   return _fetch(`posts?per_page=1&lang=${lang}`);
 };
 
+export const fetchPost = (slug) => {
+  return _fetch(`posts?slug=${slug}`);
+};
+
 export const fetchFeaturedPosts = (lang) => {
   return _fetch(`featured-posts?lang=${lang}`, true);
 };
@@ -38,4 +42,11 @@ export const fetchCategories = async (lang) => {
   );
 
   return categories ? formatCategories(categories) : undefined;
+};
+
+export const fetchCategoryAndPosts = async (categorySlug, lang) => {
+  return await _fetch(
+    `posts-by-category-slug/${categorySlug}?lang=${lang}`,
+    true
+  );
 };

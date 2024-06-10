@@ -10,8 +10,8 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
         {language === "fr" ? "Les plus récents" : "De meest recente artikels"}
       </h2>
 
-      {mostRecentPosts.map((post) => (
-        <Post post={post} />
+      {mostRecentPosts.map((post, index) => (
+        <Post post={post} key={index} />
       ))}
     </section>
   );
