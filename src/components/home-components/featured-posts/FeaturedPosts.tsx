@@ -2,7 +2,7 @@ import React from "react";
 import styling from "./FeaturedPosts.module.less";
 type Props = {};
 import Image from "next/image";
-import { createArticleLink } from "@/lib/utils";
+import { useRouter } from "next/router";
 
 export default function FeaturedPosts({ featuredPosts, language }: Props) {
   return (
@@ -26,6 +26,7 @@ export default function FeaturedPosts({ featuredPosts, language }: Props) {
 }
 
 const Article = ({ article, first = false }) => {
+  const router = useRouter();
   return (
     <article
       id={article.id}
@@ -33,7 +34,7 @@ const Article = ({ article, first = false }) => {
         first ? styling.firstFeaturedItem : styling.secondaryFeaturedItem
       }`}
       onClick={() => {
-        window.location.href = createArticleLink(article);
+        router.push(article.link);
       }}
     >
       <header className={styling.metaData}>

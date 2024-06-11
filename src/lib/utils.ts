@@ -59,6 +59,17 @@ export function useLanguage(initialLanguage) {
   const [language, setLanguage] = useState(initialLanguage);
 
   useEffect(() => {
+    // Check if the current route has a slug
+    if (router.pathname === "/" && language === "nl") {
+      console.log("ok");
+      router.push("/nl");
+      window.location.reload();
+    } else if (router.pathname === "/nl") {
+      router.replace({ pathname: router.pathname, query: "/" });
+    }
+  }, [router.pathname, language]);
+
+  useEffect(() => {
     const currentLanguage = localStorage.getItem("lb-language");
 
     if (currentLanguage !== language) {
@@ -73,19 +84,70 @@ export function useLanguage(initialLanguage) {
   return [language, setLanguage];
 }
 
-export const createArticleLink = (data) => {
+function transformDate(inputDate, lang) {
+  // Define month names in Dutch and French
+  const months = {
+    nl: [
+      "januari",
+      "februari",
+      "maart",
+      "april",
+      "mei",
+      "juni",
+      "juli",
+      "augustus",
+      "september",
+      "oktober",
+      "november",
+      "december",
+    ],
+    fr: [
+      "janvier",
+      "février",
+      "mars",
+      "avril",
+      "mai",
+      "juin",
+      "juillet",
+      "août",
+      "septembre",
+      "octobre",
+      "novembre",
+      "décembre",
+    ],
+  };
+
+  // Extract day, month, and year from the input date string
+  const [day, monthName, year] = inputDate.split(" ");
+
+  const monthNames = months[lang];
+
+  // Determine the month index based on the detected language
+  const monthIndex = (monthNames.indexOf(monthName) + 1)
+    .toString()
+    .padStart(2, "0");
+
+  // Return the formatted date string in YYYY/MM/DD format
+  return `${year}/${monthIndex}/${day.toString().padStart(2, "0")}`;
+}
+
+export const createArticleLink = (data, lang) => {
   const dateStr = data.date.trim();
-  const dateObj = new Date(dateStr);
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
 
   let title = data.title.toLowerCase();
-  title = title.replace(/[^a-z0-9\s]/g, ""); // Remove non-alphanumeric characters except spaces
+  title = title
+    // Replace accented characters with their non-accented equivalents
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    // Remove non-alphanumeric characters except spaces and hyphens
+    .replace(/[^a-z0-9\s-]/g, "");
   title = title.replace(/\s+/g, "-"); // Replace spaces with hyphens
 
   // Construct the URL
-  const url = `https://news.ladbrokes.be/${year}/${month}/${day}/${title}/`;
+  const url = `${lang === "nl" ? "/nl" : ""}/${transformDate(
+    dateStr,
+    lang
+  )}/${title}/`;
 
   return url;
 };

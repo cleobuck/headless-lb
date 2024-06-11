@@ -1,5 +1,6 @@
 import React from "react";
 import styling from "./MostPopularPosts.module.less";
+import { useRouter } from "next/router";
 type Props = {};
 
 export default function MostPopularPosts({
@@ -20,10 +21,11 @@ export default function MostPopularPosts({
 }
 
 const Article = ({ article }) => {
+  const router = useRouter();
   return (
     <article
       onClick={() => {
-        window.location.href = article.permalink;
+        router.push(article.link);
       }}
       className={styling.article}
     >

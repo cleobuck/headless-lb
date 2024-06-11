@@ -19,7 +19,7 @@ export default function Header({ categories, language }: Props) {
     >
       <Image src={Logo} alt="ladbrokes logo" className={styling.logo} />
 
-      {isNavShown && <Nav categories={categories} initialLanguage={language} />}
+      {isNavShown && <Nav categories={categories} language={language} />}
 
       <Bars
         onClick={() => showNav((isNavShown) => !isNavShown)}
@@ -30,10 +30,8 @@ export default function Header({ categories, language }: Props) {
   );
 }
 
-const Nav = ({ categories, initialLanguage }) => {
+const Nav = ({ categories, language }) => {
   const [isLanguageMenuOpen, openLanguageMenu] = useState(false);
-
-  const [language, setLanguage] = useLanguage(initialLanguage);
 
   return (
     <nav className={styling.nav}>
@@ -55,15 +53,32 @@ const Nav = ({ categories, initialLanguage }) => {
           }
         >
           {language === "fr" ? "FR" : "NL"}
-          {isLanguageMenuOpen && (
-            <ul>
-              <li onClick={() => setLanguage("fr")}> FR </li>
-              <li onClick={() => setLanguage("nl")}> NL </li>
-            </ul>
-          )}
+          {isLanguageMenuOpen && <LanguageMenu language={language} />}
         </li>
       </ul>
     </nav>
+  );
+};
+
+const LanguageMenu = ({ language }) => {
+  const router = useRouter();
+  const setLanguage = (newLanguage) => {
+    if (newLanguage !== language) {
+      localStorage.setItem("lb-language", newLanguage);
+      document.cookie = `lb-language=${newLanguage}; path=/`;
+      if (router.pathname === "/" && newLanguage === "nl") {
+        router.push("/nl");
+      } else if (router.pathname === "/nl" && newLanguage === "fr") {
+        router.replace("/");
+      }
+      window.location.reload();
+    }
+  };
+  return (
+    <ul>
+      <li onClick={() => setLanguage("fr")}> FR </li>
+      <li onClick={() => setLanguage("nl")}> NL </li>
+    </ul>
   );
 };
 

@@ -1,3 +1,0 @@
-- link with language tag
-- add scripts 
-- video embed

@@ -8,7 +8,6 @@ import {
 } from "@/lib/api";
 import cookie from "cookie";
 import styling from "./article.module.less";
-import { useState } from "react";
 export async function getServerSideProps(context) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -16,23 +15,25 @@ export async function getServerSideProps(context) {
 
   const language = cookies["lb-language"] || "fr";
 
-  let post = undefined;
-  let similarArticles = undefined;
+  const bannerFlowScript = await fetchBannerFlowScript(language);
+
+  const categories = await fetchCategories(language);
 
   // const posts = await fetchPosts(language);
-  await fetchPost(article[article.length - 1]).then(async (data) => {
-    post = data[0];
+  const posts = await fetchPost(article[article.length - 1]);
+
+  const post = posts[0];
+
+  let similarArticles = undefined;
+
+  if (post && post.categories) {
+    console.log(post.permalink);
     similarArticles = await fetchSimilarArticles(
       post.categories[post.categories.length - 1],
       post.id,
       language
     );
-  });
-
-  const bannerFlowScript = await fetchBannerFlowScript(language);
-
-  const categories = await fetchCategories(language);
-
+  }
   return {
     props: {
       post,

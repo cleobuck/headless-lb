@@ -2,6 +2,7 @@ import React from "react";
 import styling from "./MostRecentPosts.module.less";
 type Props = {};
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
   return (
@@ -18,10 +19,11 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
 }
 
 const Post = ({ post }) => {
+  const router = useRouter();
   return (
     <article
       onClick={() => {
-        window.location.href = post.permalink;
+        router.push(post.link);
       }}
       className={styling.postItem}
     >
