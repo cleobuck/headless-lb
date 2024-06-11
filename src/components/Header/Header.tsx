@@ -39,8 +39,8 @@ const Nav = ({ categories, language }) => {
         {categories
           .filter((category) => ![1, 9].includes(category.id))
           .reverse()
-          .map((category) => (
-            <CategoryItem category={category} />
+          .map((category, index) => (
+            <CategoryItem key={index} category={category} />
           ))}
 
         <li> Casino </li>

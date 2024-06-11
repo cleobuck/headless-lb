@@ -51,39 +51,6 @@ export function formatCategories(categories) {
   return formattedCategories;
 }
 
-// export function useLanguage(initialLanguage) {
-//   // Store language in localStorage
-
-//   const router = useRouter();
-
-//   const [language, setLanguage] = useState(initialLanguage);
-
-//   useEffect(() => {
-//     // Check if the current route has a slug
-//     if (router.pathname === "/" && language === "nl") {
-//       console.log("ok");
-//       router.push("/nl");
-//       window.location.reload();
-//     } else if (router.pathname === "/nl") {
-//       router.replace({ pathname: router.pathname, query: "/" });
-//     }
-//   }, [router.pathname, language]);
-
-//   useEffect(() => {
-//     const currentLanguage = localStorage.getItem("lb-language");
-
-//     if (currentLanguage !== language) {
-//       localStorage.setItem("lb-language", language);
-//       // Store language in cookie
-//       document.cookie = `lb-language=${language}; path=/`;
-//       // Reload the page to reflect the change
-//       window.location.reload();
-//     }
-//   }, [language]);
-
-//   return [language, setLanguage];
-// }
-
 export const setLanguage = (lang) => {
   localStorage.setItem("lb-language", lang);
   document.cookie = `lb-language=${lang}; path=/`;
@@ -177,3 +144,17 @@ export const loadScript = (src: string) => {
     document.head.appendChild(script);
   });
 };
+
+export function stripLanguagePrefix(url, prefix) {
+  // Ensure the prefix starts with a slash
+  if (!prefix.startsWith("/")) {
+    prefix = "/" + prefix;
+  }
+
+  // Check if the URL starts with the prefix and remove it
+  if (url.startsWith(prefix)) {
+    return url.slice(prefix.length);
+  }
+
+  return url; // Return the original URL if the prefix doesn't match
+}

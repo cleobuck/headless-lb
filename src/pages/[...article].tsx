@@ -6,13 +6,31 @@ import {
   fetchPost,
   fetchSimilarArticles,
 } from "@/lib/api";
-import cookie from "cookie";
 import styling from "./article.module.less";
-import { getLanguage } from "@/lib/utils";
+import { getLanguage, stripLanguagePrefix } from "@/lib/utils";
 export async function getServerSideProps(context) {
   const { article } = context.query;
-
+  const language = getLanguage(context);
   const { req } = context;
+
+  switch (true) {
+    case !context.resolvedUrl.startsWith("/nl") && language === "nl": {
+      return {
+        redirect: {
+          destination: `/nl/${context.resolvedUrl}`,
+          permanent: false,
+        },
+      };
+    }
+    case context.resolvedUrl.startsWith("/nl") && language === "fr": {
+      return {
+        redirect: {
+          destination: stripLanguagePrefix(context.resolvedUrl, "/nl"),
+          permanent: false,
+        },
+      };
+    }
+  }
 
   if (!req) {
     return {
@@ -26,16 +44,16 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const language = getLanguage(context);
-
   const bannerFlowScript = await fetchBannerFlowScript(language);
 
   const categories = await fetchCategories(language);
 
   // const posts = await fetchPosts(language);
-  const posts = await fetchPost(article[article.length - 1]);
+  const posts = await fetchPost(article[article.length - 1], language);
 
   const post = posts[0] || null;
+
+  console.log(post);
 
   let similarArticles = null;
 

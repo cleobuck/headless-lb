@@ -5,7 +5,7 @@ import {
   fetchFeaturedPosts,
   fetchMostPopularPosts,
   fetchMostRecentPosts,
-} from "../lib/api";
+} from "./api";
 
 export default async function getServerSideProps(context) {
   const language = getLanguage(context);
@@ -19,8 +19,7 @@ export default async function getServerSideProps(context) {
         },
       };
     }
-    case context.resovledUrl === "/nl" && language === "fr": {
-      console.log("yes");
+    case context.resolvedUrl === "/nl" && language === "fr": {
       return {
         redirect: {
           destination: `/`,

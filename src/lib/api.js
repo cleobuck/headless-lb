@@ -20,8 +20,9 @@ export const fetchPosts = (lang) => {
   return _fetch(`posts?per_page=1&lang=${lang}`);
 };
 
-export const fetchPost = (slug) => {
-  return _fetch(`posts?slug=${slug}`);
+export const fetchPost = (slug, lang) => {
+  console.log(lang);
+  return _fetch(`posts?slug=${slug}&lang=${lang}`);
 };
 
 export const fetchFeaturedPosts = (lang) => {
