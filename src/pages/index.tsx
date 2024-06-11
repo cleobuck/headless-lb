@@ -1,5 +1,6 @@
 import Head from "next/head";
 import {
+  fetchAdvertisementBanner,
   fetchCategories,
   fetchFeaturedPosts,
   fetchMostPopularPosts,
@@ -13,6 +14,7 @@ import styling from "./index.module.less";
 import FeaturedPosts from "@/components/home-components/featured-posts/FeaturedPosts";
 import MostPopularPosts from "@/components/home-components/most-popular-posts/MostPopularPosts";
 import MostRecentPosts from "@/components/home-components/most-recent-posts/MostRecentPosts";
+import Trends from "@/components/Trends/Trends";
 export async function getServerSideProps(context) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -27,6 +29,8 @@ export async function getServerSideProps(context) {
 
   const mostPopularPosts = await fetchMostPopularPosts(language);
 
+  const advertisementBanner = await fetchAdvertisementBanner(language);
+
   return {
     props: {
       categories,
@@ -34,6 +38,7 @@ export async function getServerSideProps(context) {
       featuredPosts,
       mostRecentPosts,
       mostPopularPosts,
+      advertisementBanner,
     },
   };
 }
@@ -44,6 +49,7 @@ const HomePage = ({
   featuredPosts,
   mostRecentPosts,
   mostPopularPosts,
+  advertisementBanner,
 }) => {
   return (
     <div>
@@ -61,6 +67,8 @@ const HomePage = ({
             mostPopularPosts={mostPopularPosts}
             language={language}
           />
+
+          <Trends language={language} />
         </section>
         {/* <ul>
         {posts.map((post) => (

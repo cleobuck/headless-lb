@@ -50,3 +50,18 @@ export const fetchCategoryAndPosts = async (categorySlug, lang) => {
     true
   );
 };
+
+export const fetchAdvertisementBanner = async (lang) => {
+  return await _fetch(`advertisement-banner?lang=${lang}`, true);
+};
+
+export const fetchBannerFlowScript = async (lang) => {
+  return await _fetch(`banner-scripts?lang=${lang}`, true);
+};
+
+export const fetchSimilarArticles = async (categories, currentPostId, lang) => {
+  return await _fetch(
+    `related-articles?categories=${categories}&current_post_id=${currentPostId}&lang=${lang}`,
+    true
+  );
+};

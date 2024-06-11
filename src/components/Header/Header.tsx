@@ -35,8 +35,6 @@ const Nav = ({ categories, initialLanguage }) => {
 
   const [language, setLanguage] = useLanguage(initialLanguage);
 
-  // const [language, setLanguage] = useState();
-
   return (
     <nav className={styling.nav}>
       <ul>
