@@ -5,7 +5,7 @@ import Bars from "@/assets/images/icons/solid/bars.svg";
 import MagnifyingGlass from "@/assets/images/icons/solid/magnifying-glass.svg";
 import Image from "next/image";
 import cookie from "cookie";
-import { useLanguage } from "@/lib/utils";
+import { setLanguage, useLanguage } from "@/lib/utils";
 import { useRouter } from "next/router";
 
 type Props = {};
@@ -60,20 +60,9 @@ const Nav = ({ categories, language }) => {
   );
 };
 
-const LanguageMenu = ({ language }) => {
+const LanguageMenu = () => {
   const router = useRouter();
-  const setLanguage = (newLanguage) => {
-    if (newLanguage !== language) {
-      localStorage.setItem("lb-language", newLanguage);
-      document.cookie = `lb-language=${newLanguage}; path=/`;
-      if (router.pathname === "/" && newLanguage === "nl") {
-        router.push("/nl");
-      } else if (router.pathname === "/nl" && newLanguage === "fr") {
-        router.replace("/");
-      }
-      window.location.reload();
-    }
-  };
+
   return (
     <ul>
       <li onClick={() => setLanguage("fr")}> FR </li>
@@ -93,13 +82,13 @@ const CategoryItem = ({ category }) => {
         {category.name}
         {category.children && isSecondNavOpen && (
           <ul>
-            {category.children.map((subCategory) => (
+            {category.children.map((subCategory, index) => (
               <li
+                key={index}
                 onClick={() => {
                   window.location = `https://news.ladbrokes.be/category/category/${category.slug}/${subCategory.slug}/`;
                 }}
               >
-                {" "}
                 {subCategory.name}{" "}
               </li>
             ))}

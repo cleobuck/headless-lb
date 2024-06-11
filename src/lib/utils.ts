@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import cookie from "cookie";
 export function formatCategories(categories) {
   // Create a map to store categories by their ID for quick lookup
 
@@ -51,38 +51,52 @@ export function formatCategories(categories) {
   return formattedCategories;
 }
 
-export function useLanguage(initialLanguage) {
-  // Store language in localStorage
+// export function useLanguage(initialLanguage) {
+//   // Store language in localStorage
 
-  const router = useRouter();
+//   const router = useRouter();
 
-  const [language, setLanguage] = useState(initialLanguage);
+//   const [language, setLanguage] = useState(initialLanguage);
 
-  useEffect(() => {
-    // Check if the current route has a slug
-    if (router.pathname === "/" && language === "nl") {
-      console.log("ok");
-      router.push("/nl");
-      window.location.reload();
-    } else if (router.pathname === "/nl") {
-      router.replace({ pathname: router.pathname, query: "/" });
-    }
-  }, [router.pathname, language]);
+//   useEffect(() => {
+//     // Check if the current route has a slug
+//     if (router.pathname === "/" && language === "nl") {
+//       console.log("ok");
+//       router.push("/nl");
+//       window.location.reload();
+//     } else if (router.pathname === "/nl") {
+//       router.replace({ pathname: router.pathname, query: "/" });
+//     }
+//   }, [router.pathname, language]);
 
-  useEffect(() => {
-    const currentLanguage = localStorage.getItem("lb-language");
+//   useEffect(() => {
+//     const currentLanguage = localStorage.getItem("lb-language");
 
-    if (currentLanguage !== language) {
-      localStorage.setItem("lb-language", language);
-      // Store language in cookie
-      document.cookie = `lb-language=${language}; path=/`;
-      // Reload the page to reflect the change
-      window.location.reload();
-    }
-  }, [language]);
+//     if (currentLanguage !== language) {
+//       localStorage.setItem("lb-language", language);
+//       // Store language in cookie
+//       document.cookie = `lb-language=${language}; path=/`;
+//       // Reload the page to reflect the change
+//       window.location.reload();
+//     }
+//   }, [language]);
 
-  return [language, setLanguage];
-}
+//   return [language, setLanguage];
+// }
+
+export const setLanguage = (lang) => {
+  localStorage.setItem("lb-language", lang);
+  document.cookie = `lb-language=${lang}; path=/`;
+  window.location.reload();
+};
+
+export const getLanguage = (context) => {
+  const cookies = cookie.parse(context.req.headers.cookie || "");
+
+  const language = cookies["lb-language"] || "fr";
+
+  return language;
+};
 
 function transformDate(inputDate, lang) {
   // Define month names in Dutch and French

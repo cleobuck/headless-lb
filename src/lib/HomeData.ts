@@ -1,4 +1,4 @@
-import { createArticleLink } from "./utils";
+import { createArticleLink, getLanguage, setLanguage } from "./utils";
 import {
   fetchAdvertisementBanner,
   fetchCategories,
@@ -7,12 +7,28 @@ import {
   fetchMostRecentPosts,
 } from "../lib/api";
 
-import cookie from "cookie";
-
 export default async function getServerSideProps(context) {
-  const cookies = cookie.parse(context.req.headers.cookie || "");
+  const language = getLanguage(context);
 
-  const language = cookies["lb-language"] || "fr";
+  switch (true) {
+    case context.resolvedUrl !== "/nl" && language === "nl": {
+      return {
+        redirect: {
+          destination: `/nl`,
+          permanent: false,
+        },
+      };
+    }
+    case context.resovledUrl === "/nl" && language === "fr": {
+      console.log("yes");
+      return {
+        redirect: {
+          destination: `/`,
+          permanent: false,
+        },
+      };
+    }
+  }
 
   const categories = await fetchCategories(language);
 
