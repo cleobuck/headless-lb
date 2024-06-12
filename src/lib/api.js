@@ -1,13 +1,17 @@
 import axios from "axios";
 import { formatCategories } from "./utils";
 
-const _fetch = async (url, custom = false) => {
+const _fetch = async (url, custom = false, callback = undefined) => {
   const fullUrl = custom
     ? `https://news.ladbrokes.be/wp-json/custom/v1/${url}`
     : `https://news.ladbrokes.be/wp-json/wp/v2/${url}`;
 
   try {
     const response = await axios.get(fullUrl);
+
+    if (callback) {
+      return callback(response);
+    }
 
     return response.data;
   } catch (error) {
@@ -17,12 +21,11 @@ const _fetch = async (url, custom = false) => {
 };
 
 export const fetchPosts = (lang) => {
-  return _fetch(`posts?per_page=1&lang=${lang}`);
+  return _fetch(`posts?per_page=1&lang=${lang}`, true);
 };
 
 export const fetchPost = (slug, lang) => {
-  console.log(lang);
-  return _fetch(`posts?slug=${slug}&lang=${lang}`);
+  return _fetch(`post?slug=${slug}&lang=${lang}`, true);
 };
 
 export const fetchFeaturedPosts = (lang) => {

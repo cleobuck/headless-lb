@@ -7,30 +7,11 @@ import {
   fetchSimilarArticles,
 } from "@/lib/api";
 import styling from "./article.module.less";
-import { getLanguage, stripLanguagePrefix } from "@/lib/utils";
+import { getLanguage } from "@/lib/utils";
 export async function getServerSideProps(context) {
   const { article } = context.query;
   const language = getLanguage(context);
   const { req } = context;
-
-  switch (true) {
-    case !context.resolvedUrl.startsWith("/nl") && language === "nl": {
-      return {
-        redirect: {
-          destination: `/nl/${context.resolvedUrl}`,
-          permanent: false,
-        },
-      };
-    }
-    case context.resolvedUrl.startsWith("/nl") && language === "fr": {
-      return {
-        redirect: {
-          destination: stripLanguagePrefix(context.resolvedUrl, "/nl"),
-          permanent: false,
-        },
-      };
-    }
-  }
 
   if (!req) {
     return {
@@ -44,18 +25,33 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const bannerFlowScript = await fetchBannerFlowScript(language);
+  const postResponse = await fetchPost(article[article.length - 1], language);
 
+  if (postResponse?.switchSlugLanguage) {
+    const segments = context.resolvedUrl.split("/");
+
+    // Remove the last segment (current slug)
+    segments.pop();
+
+    if (segments[0] === "nl") {
+      segments.shift();
+    }
+    // Append the translated slug to the URL
+    segments.push(postResponse.translated_slug);
+
+    return {
+      redirect: {
+        destination: `${language === "nl" ? "/nl" : ""}/${segments.join("/")}`,
+        permanent: false,
+      },
+    };
+  }
+
+  const bannerFlowScript = await fetchBannerFlowScript(language);
   const categories = await fetchCategories(language);
 
-  // const posts = await fetchPosts(language);
-  const posts = await fetchPost(article[article.length - 1], language);
-
-  const post = posts[0] || null;
-
-  console.log(post);
-
   let similarArticles = null;
+  const post = postResponse.post;
 
   if (post && post.categories) {
     similarArticles = await fetchSimilarArticles(
@@ -64,6 +60,7 @@ export async function getServerSideProps(context) {
       language
     );
   }
+
   return {
     props: {
       post,
@@ -87,7 +84,9 @@ export default function Article({
       <Header categories={categories} language={language} />
       {post && (
         <section className={styling.content}>
-          <article>Post: {post.title.rendered}</article>
+          <article>
+            Post: {post.title} in {post.language}
+          </article>
         </section>
       )}
       <Footer language={language} />;
