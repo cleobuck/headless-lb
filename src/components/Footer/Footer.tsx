@@ -2,9 +2,12 @@ import React from "react";
 import { footerData, lawStatement } from "./FooterData";
 import styling from "./Footer.module.less";
 
-type Props = { language: string };
+import { FooterLink, FooterSection } from "./types";
+import { langType } from "@/types/generalTypes";
 
-const Footer = ({ language }) => {
+type Props = { language: langType };
+
+const Footer = ({ language }: Props) => {
   return (
     <footer className={styling.footer}>
       <>
@@ -17,7 +20,7 @@ const Footer = ({ language }) => {
   );
 };
 
-const FooterColumn = ({ title, links }) => (
+const FooterColumn = ({ title, links }: FooterSection) => (
   <div className={styling.column}>
     <h4 className={styling.columnHeader}>{title}</h4>
 
@@ -29,7 +32,7 @@ const FooterColumn = ({ title, links }) => (
   </div>
 );
 
-const FooterLink = ({ href, text }) => (
+const FooterLink = ({ href, text }: FooterLink) => (
   <li>
     <a
       href={href}

@@ -8,8 +8,14 @@ import {
 } from "@/lib/api";
 import styling from "./article.module.less";
 import { getLanguage } from "@/lib/utils";
-export async function getServerSideProps(context) {
+import { GetServerSidePropsContext } from "next";
+import { ArticleType, FullPostType } from "@/types/PostTypes";
+import { langType } from "@/types/generalTypes";
+import { CategoryType } from "@/types/CategoryTypes";
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
+
+  const articleSlugs = article as string[];
   const language = getLanguage(context);
   const { req } = context;
 
@@ -25,7 +31,10 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const postResponse = await fetchPost(article[article.length - 1], language);
+  const postResponse = await fetchPost(
+    articleSlugs[articleSlugs.length - 1],
+    language
+  );
 
   if (postResponse?.switchSlugLanguage) {
     const segments = context.resolvedUrl.split("/");
@@ -55,7 +64,9 @@ export async function getServerSideProps(context) {
 
   if (post && post.categories) {
     similarArticles = await fetchSimilarArticles(
-      post.categories[post.categories.length - 1],
+      post.categories.map((item: any) => item.cat_ID)[
+        post.categories.length - 1
+      ],
       post.id,
       language
     );
@@ -78,15 +89,19 @@ export default function Article({
   categories,
   bannerFlowScript,
   similarArticles,
+}: {
+  post: FullPostType;
+  language: langType;
+  categories: CategoryType[];
+  bannerFlowScript: string;
+  similarArticles: ArticleType[];
 }) {
   return (
     <>
       <Header categories={categories} language={language} />
       {post && (
         <section className={styling.content}>
-          <article>
-            Post: {post.title} in {post.language}
-          </article>
+          <article>Post: {post.title}</article>
         </section>
       )}
       <Footer language={language} />;

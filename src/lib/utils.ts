@@ -1,16 +1,21 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import cookie from "cookie";
-export function formatCategories(categories) {
+import { GetServerSidePropsContext } from "next";
+import { langType } from "@/types/generalTypes";
+import { ArticleType } from "@/types/PostTypes";
+import { ServerCategoryType, SubCategoryType } from "@/types/CategoryTypes";
+export function formatCategories(categories: ServerCategoryType[]) {
   // Create a map to store categories by their ID for quick lookup
 
-  const categoryMap = categories.reduce((map, category) => {
-    map[category.id] = category;
-    return map;
-  }, {});
+  const categoryMap = categories.reduce(
+    (map: { [key: number]: ServerCategoryType }, category) => {
+      map[category.id] = category;
+      return map;
+    },
+    {}
+  );
 
   // Function to recursively build category tree
-  function buildCategoryTree(categoryId) {
+  function buildCategoryTree(categoryId: number) {
     const category = categoryMap[categoryId];
     if (!category) return null;
 
@@ -19,7 +24,7 @@ export function formatCategories(categories) {
       id: category.id,
       name: category.name,
       slug: category.slug,
-      children: [],
+      children: [] as SubCategoryType[],
     };
 
     // Recursively build children
@@ -30,10 +35,6 @@ export function formatCategories(categories) {
         formattedCategory.children.push(formattedChild);
       }
     });
-
-    if (formattedCategory.children.length === 0) {
-      delete formattedCategory.children;
-    }
 
     return formattedCategory;
   }
@@ -51,21 +52,21 @@ export function formatCategories(categories) {
   return formattedCategories;
 }
 
-export const setLanguage = (lang) => {
+export const setLanguage = (lang: langType) => {
   localStorage.setItem("lb-language", lang);
   document.cookie = `lb-language=${lang}; path=/`;
   window.location.reload();
 };
 
-export const getLanguage = (context) => {
+export const getLanguage = (context: GetServerSidePropsContext) => {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
   const language = cookies["lb-language"] || "fr";
 
-  return language;
+  return language as langType;
 };
 
-function transformDate(inputDate, lang) {
+function transformDate(inputDate: string, lang: langType) {
   // Define month names in Dutch and French
   const months = {
     nl: [
@@ -112,7 +113,7 @@ function transformDate(inputDate, lang) {
   return `${year}/${monthIndex}/${day.toString().padStart(2, "0")}`;
 }
 
-export const createArticleLink = (data, lang) => {
+export const createArticleLink = (data: ArticleType, lang: langType) => {
   const dateStr = data.date.trim();
 
   let title = data.title.toLowerCase();
@@ -144,17 +145,3 @@ export const loadScript = (src: string) => {
     document.head.appendChild(script);
   });
 };
-
-export function stripLanguagePrefix(url, prefix) {
-  // Ensure the prefix starts with a slash
-  if (!prefix.startsWith("/")) {
-    prefix = "/" + prefix;
-  }
-
-  // Check if the URL starts with the prefix and remove it
-  if (url.startsWith(prefix)) {
-    return url.slice(prefix.length);
-  }
-
-  return url; // Return the original URL if the prefix doesn't match
-}

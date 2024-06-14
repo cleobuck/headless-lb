@@ -4,11 +4,12 @@ import Logo from "@/assets/images/ladbrokes-logo.webp";
 import Bars from "@/assets/images/icons/solid/bars.svg";
 import MagnifyingGlass from "@/assets/images/icons/solid/magnifying-glass.svg";
 import Image from "next/image";
-import cookie from "cookie";
-import { setLanguage, useLanguage } from "@/lib/utils";
+import { setLanguage } from "@/lib/utils";
 import { useRouter } from "next/router";
+import { langType } from "@/types/generalTypes";
+import { CategoryType } from "@/types/CategoryTypes";
 
-type Props = {};
+type Props = { language: langType; categories: CategoryType[] };
 
 export default function Header({ categories, language }: Props) {
   const [isNavShown, showNav] = useState(false);
@@ -30,7 +31,7 @@ export default function Header({ categories, language }: Props) {
   );
 }
 
-const Nav = ({ categories, language }) => {
+const Nav = ({ categories, language }: Props) => {
   const [isLanguageMenuOpen, openLanguageMenu] = useState(false);
 
   return (
@@ -53,7 +54,7 @@ const Nav = ({ categories, language }) => {
           }
         >
           {language === "fr" ? "FR" : "NL"}
-          {isLanguageMenuOpen && <LanguageMenu language={language} />}
+          {isLanguageMenuOpen && <LanguageMenu />}
         </li>
       </ul>
     </nav>
@@ -71,7 +72,7 @@ const LanguageMenu = () => {
   );
 };
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category }: { category: CategoryType }) => {
   const [isSecondNavOpen, showSecondNav] = useState(false);
 
   const router = useRouter();
@@ -86,10 +87,12 @@ const CategoryItem = ({ category }) => {
               <li
                 key={index}
                 onClick={() => {
-                  window.location = `https://news.ladbrokes.be/category/category/${category.slug}/${subCategory.slug}/`;
+                  router.push(
+                    `/category/${category.slug}/${subCategory.slug}/`
+                  );
                 }}
               >
-                {subCategory.name}{" "}
+                {subCategory.name}
               </li>
             ))}
           </ul>

@@ -1,7 +1,9 @@
 import React from "react";
 import styling from "./MostPopularPosts.module.less";
 import { useRouter } from "next/router";
-type Props = {};
+import { langType } from "@/types/generalTypes";
+import { ArticleType } from "@/types/PostTypes";
+type Props = { language: langType; mostPopularPosts: ArticleType[] };
 
 export default function MostPopularPosts({
   mostPopularPosts,
@@ -20,7 +22,7 @@ export default function MostPopularPosts({
   );
 }
 
-const Article = ({ article }) => {
+const Article = ({ article }: { article: ArticleType }) => {
   const router = useRouter();
   return (
     <article

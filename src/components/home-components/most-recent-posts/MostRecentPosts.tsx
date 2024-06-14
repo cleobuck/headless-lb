@@ -1,8 +1,10 @@
 import React from "react";
 import styling from "./MostRecentPosts.module.less";
-type Props = {};
+type Props = { language: langType; mostRecentPosts: ArticleType[] };
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { langType } from "@/types/generalTypes";
+import { ArticleType } from "@/types/PostTypes";
 
 export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
   return (
@@ -18,7 +20,7 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
   );
 }
 
-const Post = ({ post }) => {
+const Post = ({ post }: { post: ArticleType }) => {
   const router = useRouter();
   return (
     <article

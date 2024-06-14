@@ -6,7 +6,9 @@ import Trends from "@/components/Trends/Trends";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import styling from "./HomeComponent.module.less";
-type Props = {};
+import { langType } from "@/types/generalTypes";
+import { AdBannerType, ArticleType } from "@/types/PostTypes";
+import { HomeTypes } from "@/types/HomeTypes";
 
 const HomeComponent = ({
   categories,
@@ -15,7 +17,7 @@ const HomeComponent = ({
   mostRecentPosts,
   mostPopularPosts,
   advertisementBanner,
-}) => {
+}: HomeTypes) => {
   return (
     <div>
       <Header categories={categories} language={language} />
@@ -35,13 +37,6 @@ const HomeComponent = ({
 
           <Trends language={language} />
         </section>
-        {/* <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <a href={`/posts/${post.slug}`}>{post.title.rendered}</a>
-          </li>
-        ))}
-      </ul> */}
       </div>
 
       <Footer language={language} />

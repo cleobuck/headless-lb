@@ -1,8 +1,10 @@
 import React from "react";
 import styling from "./FeaturedPosts.module.less";
-type Props = {};
+type Props = { language: langType; featuredPosts: ArticleType[] };
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { langType } from "@/types/generalTypes";
+import { ArticleType } from "@/types/PostTypes";
 
 export default function FeaturedPosts({ featuredPosts, language }: Props) {
   return (
@@ -25,11 +27,17 @@ export default function FeaturedPosts({ featuredPosts, language }: Props) {
   );
 }
 
-const Article = ({ article, first = false }) => {
+const Article = ({
+  article,
+  first,
+}: {
+  article: ArticleType;
+  first?: boolean;
+}) => {
   const router = useRouter();
   return (
     <article
-      id={article.id}
+      id={article.id.toString()}
       className={`${styling.featuredItem} ${
         first ? styling.firstFeaturedItem : styling.secondaryFeaturedItem
       }`}

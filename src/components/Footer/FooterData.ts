@@ -1,4 +1,6 @@
-export const footerData = {
+import { FooterDataType } from "./types";
+
+export const footerData: FooterDataType = {
   fr: [
     {
       title: "Nos sites",

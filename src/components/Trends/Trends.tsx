@@ -1,8 +1,9 @@
 import { loadScript } from "@/lib/utils";
+import { langType } from "@/types/generalTypes";
 import React, { useEffect, useRef } from "react";
 
 type Props = {
-  language: string;
+  language: langType;
 };
 
 export default function Trends({ language }: Props) {
@@ -16,6 +17,7 @@ export default function Trends({ language }: Props) {
         if (topMatchContainerRef.current) {
           // Initialize the TopMatchWidget after the script has loaded
 
+          // @ts-ignore
           new TopMatchWidget({
             language,
             targetElementId: "top-match-container",

@@ -6,8 +6,12 @@ import {
   fetchMostPopularPosts,
   fetchMostRecentPosts,
 } from "./api";
+import { GetServerSidePropsContext } from "next";
+import { ArticleType } from "@/types/PostTypes";
 
-export default async function getServerSideProps(context) {
+export default async function getServerSideProps(
+  context: GetServerSidePropsContext
+) {
   const language = getLanguage(context);
 
   switch (true) {
@@ -43,15 +47,15 @@ export default async function getServerSideProps(context) {
     props: {
       categories,
       language,
-      featuredPosts: featuredPosts.map((post) => ({
+      featuredPosts: featuredPosts.map((post: ArticleType) => ({
         ...post,
         link: createArticleLink(post, language),
       })),
-      mostRecentPosts: mostRecentPosts.map((post) => ({
+      mostRecentPosts: mostRecentPosts.map((post: ArticleType) => ({
         ...post,
         link: createArticleLink(post, language),
       })),
-      mostPopularPosts: mostPopularPosts.map((post) => ({
+      mostPopularPosts: mostPopularPosts.map((post: ArticleType) => ({
         ...post,
         link: createArticleLink(post, language),
       })),
