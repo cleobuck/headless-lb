@@ -9,6 +9,7 @@ import styling from "./HomeComponent.module.less";
 import { langType } from "@/types/generalTypes";
 import { AdBannerType, ArticleType } from "@/types/PostTypes";
 import { HomeTypes } from "@/types/HomeTypes";
+import SocialNetworks from "../social-networks/SocialNetworks";
 
 const HomeComponent = ({
   categories,
@@ -39,6 +40,7 @@ const HomeComponent = ({
         </section>
       </div>
 
+      <SocialNetworks language={language} />
       <Footer language={language} />
     </div>
   );
