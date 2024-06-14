@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 import { langType } from "@/types/generalTypes";
 import { CategoryType } from "@/types/CategoryTypes";
 
+import CaretDown from "@/assets/images/icons/solid/caret-down.svg";
+
 type Props = { language: langType; categories: CategoryType[] };
 
 export default function Header({ categories, language }: Props) {
@@ -44,16 +46,32 @@ const Nav = ({ categories, language }: Props) => {
             <CategoryItem key={index} category={category} />
           ))}
 
-        <li> Casino </li>
-        <li> {language === "fr" ? "Promotions" : "Promoties"} </li>
-        <li> {language === "fr" ? "S'identifier" : "Inloggen"} </li>
-        <li> {language === "fr" ? "S'enregistrer" : "Registreren"} </li>
+        <li className={styling.topNavItem}> Casino </li>
+        <li className={styling.topNavItem}>
+          {language === "fr" ? "Promotions" : "Promoties"}{" "}
+        </li>
+        <li className={styling.topNavItem}>
+          {language === "fr" ? "S'identifier" : "Inloggen"}{" "}
+        </li>
+        <li className={`${styling.topNavItem} ${styling.highlightedLi}`}>
+          <span className={styling.highlightedNavItem}>
+            {language === "fr" ? "S'enregistrer" : "Registreren"}
+          </span>
+        </li>
         <li
           onClick={() =>
             openLanguageMenu((isLanguageMenuOpen) => !isLanguageMenuOpen)
           }
         >
-          {language === "fr" ? "FR" : "NL"}
+          <div
+            className={`${styling.topNavItem} ${
+              isLanguageMenuOpen ? styling.topNavOpen : ""
+            }`}
+          >
+            {language === "fr" ? "FR" : "NL"}
+            <CaretDown className={styling.caretDown} />
+          </div>
+
           {isLanguageMenuOpen && <LanguageMenu />}
         </li>
       </ul>
@@ -65,9 +83,19 @@ const LanguageMenu = () => {
   const router = useRouter();
 
   return (
-    <ul>
-      <li onClick={() => setLanguage("fr")}> FR </li>
-      <li onClick={() => setLanguage("nl")}> NL </li>
+    <ul className={styling.secondaryLevelNav}>
+      <li
+        className={styling.secondaryNavItems}
+        onClick={() => setLanguage("fr")}
+      >
+        FR
+      </li>
+      <li
+        className={styling.secondaryNavItems}
+        onClick={() => setLanguage("nl")}
+      >
+        NL
+      </li>
     </ul>
   );
 };
@@ -80,11 +108,18 @@ const CategoryItem = ({ category }: { category: CategoryType }) => {
   return (
     <>
       <li onClick={() => showSecondNav((isShown) => !isShown)}>
-        {category.name}
+        <div
+          className={`${styling.topNavItem} ${
+            isSecondNavOpen ? styling.topNavOpen : ""
+          }`}
+        >
+          {category.name} <CaretDown className={styling.caretDown} />
+        </div>
         {category.children && isSecondNavOpen && (
-          <ul>
+          <ul className={styling.secondaryLevelNav}>
             {category.children.map((subCategory, index) => (
               <li
+                className={styling.secondaryNavItems}
                 key={index}
                 onClick={() => {
                   router.push(
