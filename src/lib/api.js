@@ -69,3 +69,7 @@ export const fetchSimilarArticles = async (categories, currentPostId, lang) => {
     true
   );
 };
+
+export const searchArticles = async (searchPhrase) => {
+  return await _fetch(`posts?search=${searchPhrase}`);
+};

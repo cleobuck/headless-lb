@@ -10,6 +10,7 @@ import { langType } from "@/types/generalTypes";
 import { CategoryType } from "@/types/CategoryTypes";
 
 import CaretDown from "@/assets/images/icons/solid/caret-down.svg";
+import Search from "../Search/Search";
 
 type Props = {
   language: langType;
@@ -19,6 +20,7 @@ type Props = {
 
 export default function Header({ categories, language }: Props) {
   const [isNavShown, showNav] = useState(false);
+  const [isSearchShown, setSearch] = useState(false);
 
   const router = useRouter();
 
@@ -45,7 +47,12 @@ export default function Header({ categories, language }: Props) {
         onClick={() => showNav((isNavShown) => !isNavShown)}
         className={styling.bars}
       />
-      <MagnifyingGlass className={styling.magnifyingGlass} />
+      <MagnifyingGlass
+        onClick={() => setSearch((isSearchShown) => !isSearchShown)}
+        className={styling.magnifyingGlass}
+      />
+
+      {isSearchShown && <Search close={() => setSearch(false)} />}
     </header>
   );
 }
