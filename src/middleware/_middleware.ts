@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
+  console.log(
+    "-------------------------------------------------------------------------------------------------------"
+  );
   const url = req.nextUrl;
   const pathname = url.pathname;
 

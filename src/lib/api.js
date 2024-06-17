@@ -15,8 +15,7 @@ const _fetch = async (url, custom = false, callback = undefined) => {
 
     return response.data;
   } catch (error) {
-    console.log("error fetching . ".fullUrl);
-    // console.error("Error fetching posts:", error);
+    console.error("Error fetching posts:", error);
     return undefined;
   }
 };

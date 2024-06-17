@@ -1,7 +1,6 @@
 import cookie from "cookie";
 import { GetServerSidePropsContext } from "next";
 import { langType } from "@/types/generalTypes";
-import { ArticleType } from "@/types/PostTypes";
 import { ServerCategoryType, SubCategoryType } from "@/types/CategoryTypes";
 export function formatCategories(categories: ServerCategoryType[]) {
   // Create a map to store categories by their ID for quick lookup
@@ -66,9 +65,12 @@ export const getLanguage = (context: GetServerSidePropsContext) => {
   return language as langType;
 };
 
-function transformDate(inputDate: string, lang: langType) {
-  // Define month names in Dutch and French
-  const months = {
+export const beautifyDate = (date: Date, lang: langType) => {
+  const month = date.getMonth(); // Months are zero-indexed, so add 1
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  const months: { [key in langType]: string[] } = {
     nl: [
       "januari",
       "februari",
@@ -99,25 +101,30 @@ function transformDate(inputDate: string, lang: langType) {
     ],
   };
 
-  // Extract day, month, and year from the input date string
-  const [day, monthName, year] = inputDate.split(" ");
+  return `${day} ${months[lang][month]} ${year}`;
+};
 
-  const monthNames = months[lang];
-
-  // Determine the month index based on the detected language
-  const monthIndex = (monthNames.indexOf(monthName) + 1)
-    .toString()
-    .padStart(2, "0");
+function transformDate(inputDate: Date, lang: langType) {
+  const month = inputDate.getMonth() + 1; // Months are zero-indexed, so add 1
+  const day = inputDate.getDate();
+  const year = inputDate.getFullYear();
 
   // Return the formatted date string in YYYY/MM/DD format
-  return `${year}/${monthIndex}/${day.toString().padStart(2, "0")}`;
+  return `${year}/${month.toString().padStart(2, "0")}/${day
+    .toString()
+    .padStart(2, "0")}`;
 }
 
-export const createArticleLink = (data: ArticleType, lang: langType) => {
-  const dateStr = data.date.trim();
+export const timeStampToDate = (timeStamp: number) =>
+  new Date(timeStamp * 1000);
 
-  let title = data.title.toLowerCase();
+export const createArticleLink = (
+  title: string,
+  date: Date,
+  lang: langType
+) => {
   title = title
+    .toLowerCase()
     // Replace accented characters with their non-accented equivalents
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -127,7 +134,7 @@ export const createArticleLink = (data: ArticleType, lang: langType) => {
 
   // Construct the URL
   const url = `${lang === "nl" ? "/nl" : ""}/${transformDate(
-    dateStr,
+    date,
     lang
   )}/${title}/`;
 

@@ -12,7 +12,7 @@ import { ArticleType, CategoryPostType } from "@/types/PostTypes";
 import { GetServerSidePropsContext } from "next";
 import { CategoryType } from "@/types/CategoryTypes";
 import SocialNetworks from "@/components/social-networks/SocialNetworks";
-import { createArticleLink } from "@/lib/utils";
+import { beautifyDate, createArticleLink, timeStampToDate } from "@/lib/utils";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -36,7 +36,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         ...categoryAndPosts,
         posts: categoryAndPosts.posts.map((post: ArticleType) => ({
           ...post,
-          link: createArticleLink(post, language),
+          date: beautifyDate(timeStampToDate(post.date), language),
+          link: createArticleLink(
+            post.title,
+            timeStampToDate(post.date),
+            language
+          ),
         })),
       },
       bannerFlowScript,

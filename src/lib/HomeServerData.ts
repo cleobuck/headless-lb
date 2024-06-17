@@ -1,4 +1,10 @@
-import { createArticleLink, getLanguage, setLanguage } from "./utils";
+import {
+  beautifyDate,
+  createArticleLink,
+  getLanguage,
+  setLanguage,
+  timeStampToDate,
+} from "./utils";
 import {
   fetchAdvertisementBanner,
   fetchCategories,
@@ -49,15 +55,30 @@ export default async function getServerSideProps(
       language,
       featuredPosts: featuredPosts.map((post: ArticleType) => ({
         ...post,
-        link: createArticleLink(post, language),
+        date: beautifyDate(timeStampToDate(post.date), language),
+        link: createArticleLink(
+          post.title,
+          timeStampToDate(post.date),
+          language
+        ),
       })),
       mostRecentPosts: mostRecentPosts.map((post: ArticleType) => ({
         ...post,
-        link: createArticleLink(post, language),
+        date: beautifyDate(timeStampToDate(post.date), language),
+        link: createArticleLink(
+          post.title,
+          timeStampToDate(post.date),
+          language
+        ),
       })),
       mostPopularPosts: mostPopularPosts.map((post: ArticleType) => ({
         ...post,
-        link: createArticleLink(post, language),
+        date: beautifyDate(timeStampToDate(post.date), language),
+        link: createArticleLink(
+          post.title,
+          timeStampToDate(post.date),
+          language
+        ),
       })),
       advertisementBanner,
     },

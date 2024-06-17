@@ -1,7 +1,7 @@
 export interface ArticleType {
   id: number;
   title: string;
-  date: string;
+  date: number;
   category: string;
   featured_image: string;
   image_alt: string;

@@ -7,7 +7,12 @@ import {
   fetchSimilarArticles,
 } from "@/lib/api";
 import styling from "./article.module.less";
-import { createArticleLink, getLanguage } from "@/lib/utils";
+import {
+  beautifyDate,
+  createArticleLink,
+  getLanguage,
+  timeStampToDate,
+} from "@/lib/utils";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType, FullPostType } from "@/types/PostTypes";
 import { langType } from "@/types/generalTypes";
@@ -75,10 +80,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      post,
-      similarArticles: similarArticles.map((similarArticle) => ({
+      post: {
+        ...post,
+
+        date: beautifyDate(timeStampToDate(post.date), language),
+
+        link: createArticleLink(
+          post.title,
+          timeStampToDate(post.date),
+          language
+        ),
+      },
+      similarArticles: similarArticles.map((similarArticle: ArticleType) => ({
         ...similarArticle,
-        link: createArticleLink(similarArticle, language),
+        link: createArticleLink(
+          similarArticle.title,
+          timeStampToDate(similarArticle.date),
+          language
+        ),
       })),
       language,
       categories,
@@ -100,7 +119,7 @@ export default function Article({
   bannerFlowScript: string;
   similarArticles: ArticleType[];
 }) {
-  console.log(similarArticles);
+  console.log(post);
   return (
     <>
       <Header categories={categories} language={language} />
@@ -109,6 +128,7 @@ export default function Article({
           <article>Post: {post.title}</article>
         </section>
       )}
+      {/* <ShareButtons url={`https://news.labrokes.be/${post.link}`} */}
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>

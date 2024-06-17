@@ -11,7 +11,11 @@ import { CategoryType } from "@/types/CategoryTypes";
 
 import CaretDown from "@/assets/images/icons/solid/caret-down.svg";
 
-type Props = { language: langType; categories: CategoryType[] };
+type Props = {
+  language: langType;
+  categories: CategoryType[];
+  hideNav?: () => void;
+};
 
 export default function Header({ categories, language }: Props) {
   const [isNavShown, showNav] = useState(false);
@@ -29,7 +33,13 @@ export default function Header({ categories, language }: Props) {
         onClick={() => router.push("/")}
       />
 
-      {isNavShown && <Nav categories={categories} language={language} />}
+      {isNavShown && (
+        <Nav
+          categories={categories}
+          language={language}
+          hideNav={() => showNav(false)}
+        />
+      )}
 
       <Bars
         onClick={() => showNav((isNavShown) => !isNavShown)}
@@ -40,7 +50,7 @@ export default function Header({ categories, language }: Props) {
   );
 }
 
-const Nav = ({ categories, language }: Props) => {
+const Nav = ({ categories, language, hideNav }: Props) => {
   const [isLanguageMenuOpen, openLanguageMenu] = useState(false);
 
   return (
@@ -50,7 +60,7 @@ const Nav = ({ categories, language }: Props) => {
           .filter((category) => ![1, 9].includes(category.id))
           .reverse()
           .map((category, index) => (
-            <CategoryItem key={index} category={category} />
+            <CategoryItem hideNav={hideNav} key={index} category={category} />
           ))}
 
         <li className={styling.topNavItem}> Casino </li>
@@ -79,27 +89,35 @@ const Nav = ({ categories, language }: Props) => {
             <CaretDown className={styling.caretDown} />
           </div>
 
-          {isLanguageMenuOpen && <LanguageMenu />}
+          {isLanguageMenuOpen && (
+            <LanguageMenu hideNav={() => showNav(false)} />
+          )}
         </li>
       </ul>
     </nav>
   );
 };
 
-const LanguageMenu = () => {
+const LanguageMenu = ({ hideNav }: { hideNav: () => void }) => {
   const router = useRouter();
 
   return (
     <ul className={styling.secondaryLevelNav}>
       <li
         className={styling.secondaryNavItems}
-        onClick={() => setLanguage("fr")}
+        onClick={() => {
+          hideNav();
+          setLanguage("fr");
+        }}
       >
         FR
       </li>
       <li
         className={styling.secondaryNavItems}
-        onClick={() => setLanguage("nl")}
+        onClick={() => {
+          hideNav();
+          setLanguage("nl");
+        }}
       >
         NL
       </li>
@@ -107,7 +125,13 @@ const LanguageMenu = () => {
   );
 };
 
-const CategoryItem = ({ category }: { category: CategoryType }) => {
+const CategoryItem = ({
+  category,
+  hideNav,
+}: {
+  category: CategoryType;
+  hideNav: () => void;
+}) => {
   const [isSecondNavOpen, showSecondNav] = useState(false);
 
   const router = useRouter();
@@ -132,6 +156,7 @@ const CategoryItem = ({ category }: { category: CategoryType }) => {
                   router.push(
                     `/category/${category.slug}/${subCategory.slug}/`
                   );
+                  hideNav();
                 }}
               >
                 {subCategory.name}
