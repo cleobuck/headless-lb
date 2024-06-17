@@ -7,7 +7,7 @@ import {
   fetchSimilarArticles,
 } from "@/lib/api";
 import styling from "./article.module.less";
-import { getLanguage } from "@/lib/utils";
+import { createArticleLink, getLanguage } from "@/lib/utils";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType, FullPostType } from "@/types/PostTypes";
 import { langType } from "@/types/generalTypes";
@@ -76,7 +76,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       post,
-      similarArticles,
+      similarArticles: similarArticles.map((similarArticle) => ({
+        ...similarArticle,
+        link: createArticleLink(similarArticle, language),
+      })),
       language,
       categories,
       bannerFlowScript: bannerFlowScript["script"].replace(/\\/g, ""),
@@ -97,6 +100,7 @@ export default function Article({
   bannerFlowScript: string;
   similarArticles: ArticleType[];
 }) {
+  console.log(similarArticles);
   return (
     <>
       <Header categories={categories} language={language} />

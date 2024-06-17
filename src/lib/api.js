@@ -6,8 +6,6 @@ const _fetch = async (url, custom = false, callback = undefined) => {
     ? `https://news.ladbrokes.be/wp-json/custom/v1/${url}`
     : `https://news.ladbrokes.be/wp-json/wp/v2/${url}`;
 
-  console.log(fullUrl);
-
   try {
     const response = await axios.get(fullUrl);
 
