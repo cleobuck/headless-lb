@@ -60,7 +60,7 @@ const Nav = ({ categories, language, hideNav }: Props) => {
           .filter((category) => ![1, 9].includes(category.id))
           .reverse()
           .map((category, index) => (
-            <CategoryItem hideNav={hideNav} key={index} category={category} />
+            <CategoryItem hideNav={hideNav!} key={index} category={category} />
           ))}
 
         <li className={styling.topNavItem}> Casino </li>
@@ -89,9 +89,7 @@ const Nav = ({ categories, language, hideNav }: Props) => {
             <CaretDown className={styling.caretDown} />
           </div>
 
-          {isLanguageMenuOpen && (
-            <LanguageMenu hideNav={() => showNav(false)} />
-          )}
+          {isLanguageMenuOpen && <LanguageMenu hideNav={hideNav!} />}
         </li>
       </ul>
     </nav>

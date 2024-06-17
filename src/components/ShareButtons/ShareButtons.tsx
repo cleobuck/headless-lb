@@ -5,7 +5,15 @@ import Pinterest from "@/assets/images/icons/brands/pinterest.svg";
 
 import Whatsapp from "@/assets/images/icons/brands/whatsapp.svg";
 
-const ShareButtons = ({ url, title, image }) => {
+const ShareButtons = ({
+  url,
+  title,
+  image,
+}: {
+  url: string;
+  title: string;
+  image: string;
+}) => {
   const shareUrl = encodeURIComponent(url);
   const shareTitle = encodeURIComponent(title);
   const shareImage = encodeURIComponent(image);
