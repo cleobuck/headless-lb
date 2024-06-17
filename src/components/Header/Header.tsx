@@ -16,11 +16,18 @@ type Props = { language: langType; categories: CategoryType[] };
 export default function Header({ categories, language }: Props) {
   const [isNavShown, showNav] = useState(false);
 
+  const router = useRouter();
+
   return (
     <header
       className={`${styling.header} ${isNavShown ? styling.toggledHeader : ""}`}
     >
-      <Image src={Logo} alt="ladbrokes logo" className={styling.logo} />
+      <Image
+        src={Logo}
+        alt="ladbrokes logo"
+        className={styling.logo}
+        onClick={() => router.push("/")}
+      />
 
       {isNavShown && <Nav categories={categories} language={language} />}
 

@@ -6,6 +6,8 @@ const _fetch = async (url, custom = false, callback = undefined) => {
     ? `https://news.ladbrokes.be/wp-json/custom/v1/${url}`
     : `https://news.ladbrokes.be/wp-json/wp/v2/${url}`;
 
+  console.log(fullUrl);
+
   try {
     const response = await axios.get(fullUrl);
 
@@ -15,7 +17,8 @@ const _fetch = async (url, custom = false, callback = undefined) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.log("error fetching . ".fullUrl);
+    // console.error("Error fetching posts:", error);
     return undefined;
   }
 };

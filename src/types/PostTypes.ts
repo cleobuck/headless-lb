@@ -1,6 +1,5 @@
 export interface ArticleType {
   id: number;
-  permalink: string;
   title: string;
   date: string;
   category: string;

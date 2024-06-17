@@ -1,13 +1,13 @@
 import { langType } from "@/types/generalTypes";
 
-export interface FooterLink {
+export interface FooterLinkType {
   href: string;
   text: string;
 }
 
 export interface FooterSection {
   title: string;
-  links: FooterLink[];
+  links: FooterLinkType[];
 }
 
 export type FooterDataType = {

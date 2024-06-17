@@ -12,6 +12,7 @@ import { GetServerSidePropsContext } from "next";
 import { ArticleType, FullPostType } from "@/types/PostTypes";
 import { langType } from "@/types/generalTypes";
 import { CategoryType } from "@/types/CategoryTypes";
+import SocialNetworks from "@/components/social-networks/SocialNetworks";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
 
@@ -104,6 +105,7 @@ export default function Article({
           <article>Post: {post.title}</article>
         </section>
       )}
+      <SocialNetworks language={language} />
       <Footer language={language} />;
     </>
   );

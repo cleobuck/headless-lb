@@ -2,7 +2,7 @@ import React from "react";
 import { footerData, lawStatement } from "./FooterData";
 import styling from "./Footer.module.less";
 
-import { FooterLink, FooterSection } from "./types";
+import { FooterLinkType, FooterSection } from "./types";
 import { langType } from "@/types/generalTypes";
 
 type Props = { language: langType };
@@ -32,7 +32,7 @@ const FooterColumn = ({ title, links }: FooterSection) => (
   </div>
 );
 
-const FooterLink = ({ href, text }: FooterLink) => (
+const FooterLink = ({ href, text }: FooterLinkType) => (
   <li>
     <a
       href={href}
