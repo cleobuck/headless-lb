@@ -5,6 +5,7 @@
   padding: 16px;
   background: #303030;
   line-height: 22px;
+
   h2 {
     color: white;
     font-weight: 700;
@@ -67,17 +68,24 @@
     }
     h2 {
       color: black;
+      margin-bottom: 20px;
     }
   }
 }
 
 @media (max-width: 767.9px) {
   .mostPopularPosts {
-    display: flex;
-    overflow-x: scroll;
-    .article {
-      height: 112px;
-      width: 70vw;
+    h2 {
+      margin-bottom: 20px;
+    }
+    .articleList {
+      display: flex;
+      width: 100%;
+      overflow: auto;
+    }
+    .articleColumn {
+      width: 100%;
+      flex: 0 0 85%;
     }
   }
 }

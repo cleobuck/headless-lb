@@ -1,0 +1,42 @@
+/* DarkModeSwitch.module.css */
+.darkModeSwitch {
+  width: 60px;
+  height: 32px;
+  cursor: pointer;
+  position: relative;
+  margin: 20px 0;
+  margin-left: auto;
+}
+
+.darkModeSwitch {
+  .icons {
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 7px;
+    height: 100%;
+    align-items: center;
+    svg {
+      width: 15px;
+      &.faMoon {
+        transform: rotate(220deg);
+      }
+    }
+  }
+  &:not(.darkModeOn) {
+    .icons {
+      border: 1px solid black;
+      svg path {
+        fill: black;
+      }
+    }
+  }
+  &.darkModeOn {
+    .icons {
+      border: 1px solid white;
+      svg path {
+        fill: white;
+      }
+    }
+  }
+}

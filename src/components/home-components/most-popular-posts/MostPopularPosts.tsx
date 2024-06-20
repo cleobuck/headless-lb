@@ -9,21 +9,36 @@ export default function MostPopularPosts({
   mostPopularPosts,
   language,
 }: Props) {
+  const listColumnLength = 3;
   return (
     <section className={styling.mostPopularPosts}>
       <h2>
         {language === "fr" ? "Les plus populaires" : "De populairste artikels"}
       </h2>
 
-      {mostPopularPosts?.map((article, index) => (
-        <Article article={article} key={index} />
-      ))}
+      <div className={styling.articleList}>
+        <div className={styling.articleColumn}>
+          {mostPopularPosts
+            ?.slice(0, listColumnLength)
+            .map((article, index) => (
+              <Article article={article} key={index} />
+            ))}
+        </div>
+
+        <div className={styling.articleColumn}>
+          {mostPopularPosts?.slice(-listColumnLength).map((article, index) => (
+            <Article article={article} key={index} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
 
 const Article = ({ article }: { article: ArticleType }) => {
   const router = useRouter();
+
+  console.log(article);
   return (
     <article
       onClick={() => {
@@ -32,7 +47,7 @@ const Article = ({ article }: { article: ArticleType }) => {
       className={styling.article}
     >
       <figure className={styling.number}>
-        <span>{article.count}</span>
+        <span>{article.number}</span>
       </figure>
       <header className={styling.metaData}>
         <span className={styling.category}>{article.category} </span>

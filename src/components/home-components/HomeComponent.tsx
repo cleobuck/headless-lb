@@ -11,6 +11,7 @@ import { AdBannerType, ArticleType } from "@/types/PostTypes";
 import { HomeTypes } from "@/types/HomeTypes";
 import SocialNetworks from "../social-networks/SocialNetworks";
 import AdBanner from "./ad-banner/AdBanner";
+import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 
 const HomeComponent = ({
   categories,
@@ -26,6 +27,7 @@ const HomeComponent = ({
       <Header categories={categories} language={language} />
 
       <div className="content">
+        <DarkModeSwitch />
         <AdBanner ads={advertisementBanner} />
         <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
