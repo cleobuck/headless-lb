@@ -1,0 +1,41 @@
+.adBanner {
+  height: 60px;
+  display: flex;
+  overflow: hidden; /* Hide the scrollbar */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  margin: 30px 0;
+
+  .figure {
+    height: 60px;
+    width: 100%;
+    flex: 0 0 100%;
+    position: relative;
+    display: inline-block;
+
+    img {
+      border-radius: 10px;
+      object-fit: cover;
+      min-height: 100%;
+      min-width: 100%;
+    }
+  }
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background: gray;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: white;
+}

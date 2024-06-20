@@ -10,6 +10,7 @@ import { langType } from "@/types/generalTypes";
 import { AdBannerType, ArticleType } from "@/types/PostTypes";
 import { HomeTypes } from "@/types/HomeTypes";
 import SocialNetworks from "../social-networks/SocialNetworks";
+import AdBanner from "./ad-banner/AdBanner";
 
 const HomeComponent = ({
   categories,
@@ -19,11 +20,13 @@ const HomeComponent = ({
   mostPopularPosts,
   advertisementBanner,
 }: HomeTypes) => {
+  console.log(advertisementBanner);
   return (
     <div>
       <Header categories={categories} language={language} />
 
       <div className="content">
+        <AdBanner ads={advertisementBanner} />
         <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
         <section className={styling.postBlock}>
