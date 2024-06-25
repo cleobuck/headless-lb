@@ -2,6 +2,8 @@ export type SubCategoryType = {
   id: number;
   name: string;
   slug: string;
+  description?: string;
+  parent_category?: string;
 };
 
 export type CategoryType = {

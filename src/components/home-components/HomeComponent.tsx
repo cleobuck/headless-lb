@@ -21,7 +21,6 @@ const HomeComponent = ({
   mostPopularPosts,
   advertisementBanner,
 }: HomeTypes) => {
-  console.log(advertisementBanner);
   return (
     <div>
       <Header categories={categories} language={language} />

@@ -10,9 +10,15 @@ import styling from "./[category].module.less";
 import { langType } from "@/types/generalTypes";
 import { ArticleType, CategoryPostType } from "@/types/PostTypes";
 import { GetServerSidePropsContext } from "next";
-import { CategoryType } from "@/types/CategoryTypes";
+import { CategoryType, SubCategoryType } from "@/types/CategoryTypes";
 import SocialNetworks from "@/components/social-networks/SocialNetworks";
 import { beautifyDate, createArticleLink, timeStampToDate } from "@/lib/utils";
+import Image from "next/image";
+import Script from "next/script";
+
+import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
+import { RefObject, useEffect, useRef } from "react";
+import { Router, useRouter } from "next/router";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -27,6 +33,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const categories = await fetchCategories(language);
 
   const bannerFlowScript = await fetchBannerFlowScript(language);
+
+  const srcStartIndex = bannerFlowScript.script.indexOf('src="') + 5;
+  const srcEndIndex = bannerFlowScript.script.indexOf('"', srcStartIndex);
+  const script = bannerFlowScript.script.slice(srcStartIndex, srcEndIndex);
 
   return {
     props: {
@@ -44,12 +54,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           ),
         })),
       },
-      bannerFlowScript,
+      bannerFlowScript: script,
     },
   };
 }
 
-export default function Article({
+export default function CategoryPage({
   categories,
   language,
   categoryAndPosts,
@@ -59,16 +69,74 @@ export default function Article({
   language: langType;
   bannerFlowScript: string;
   categoryAndPosts: {
-    category: CategoryType;
+    category: SubCategoryType;
     posts: CategoryPostType[];
   };
 }) {
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      const script = document.createElement("script");
+      script.src = bannerFlowScript;
+      script.async = true;
+
+      // Assuming 'myDiv' is the ID of the div where you want to append the script
+      ref.current.appendChild(script);
+    }
+  }, []);
   return (
     <>
       <Header categories={categories} language={language} />
-      <section className={styling.content}>lalalla</section>
+      <DarkModeSwitch />
+      <section className={styling.content}>
+        <div className={styling.listAndAside}>
+          <div>
+            <h2> {categoryAndPosts.category.parent_category}</h2>
+
+            <h3> {categoryAndPosts.category.name} </h3>
+
+            {categoryAndPosts.posts.map((post) => (
+              <Article post={post} key={post.id} />
+            ))}
+          </div>
+
+          <aside id="banner-script" ref={ref}></aside>
+        </div>
+
+        <aside className={styling.description}>
+          {categoryAndPosts.category.description}{" "}
+        </aside>
+      </section>
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>
   );
 }
+
+const Article = ({ post }: { post: CategoryPostType }) => {
+  const router = useRouter();
+  return (
+    <article
+      onClick={() => {
+        router.push(post.link);
+      }}
+    >
+      <figure className={styling.figure}>
+        <Image
+          className={styling.image}
+          src={post["featured_image"]}
+          alt=""
+          fill={true}
+        />
+      </figure>
+
+      <div className={styling.meta}>
+        <h4> {post.title} </h4>
+
+        <p> {post.excerpt} </p>
+
+        <time className={styling.date}> {post.date} </time>
+      </div>
+    </article>
+  );
+};
