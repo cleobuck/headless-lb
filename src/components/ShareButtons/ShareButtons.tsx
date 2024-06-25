@@ -4,7 +4,7 @@ import Facebook from "@/assets/images/icons/brands/facebook-f.svg";
 import Pinterest from "@/assets/images/icons/brands/pinterest.svg";
 
 import Whatsapp from "@/assets/images/icons/brands/whatsapp.svg";
-
+import styling from "./ShareButtons.module.less";
 const ShareButtons = ({
   url,
   title,
@@ -19,7 +19,7 @@ const ShareButtons = ({
   const shareImage = encodeURIComponent(image);
 
   return (
-    <div className="share-buttons">
+    <div className={styling.shareButtons}>
       <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&t=${shareTitle}`}
         target="_blank"

@@ -38,7 +38,6 @@ export default function MostPopularPosts({
 const Article = ({ article }: { article: ArticleType }) => {
   const router = useRouter();
 
-  console.log(article);
   return (
     <article
       onClick={() => {

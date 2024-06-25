@@ -31,4 +31,11 @@ export interface CategoryPostType {
 export type FullPostType = {
   id: number;
   title: string;
+  language: string;
+  featured_image: string;
+  author: string;
+  date: string;
+  content: string;
+  categories: string[];
+  link: string;
 };

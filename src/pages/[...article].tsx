@@ -21,6 +21,8 @@ import SocialNetworks from "@/components/social-networks/SocialNetworks";
 import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
 import { useEffect, useRef } from "react";
 import ShareButtons from "@/components/ShareButtons/ShareButtons";
+import Image from "next/image";
+import { useRouter } from "next/router";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
 
@@ -140,23 +142,83 @@ export default function Article({
       ref.current.appendChild(script);
     }
   }, []);
+  const router = useRouter;
   return (
     <>
       <Header categories={categories} language={language} />
       <DarkModeSwitch />
       {post && (
         <section className={styling.content}>
-          <article>Post: {post.title}</article>
+          <figure className={styling.figure}>
+            <Image
+              className={styling.image}
+              src={post["featured_image"]}
+              alt=""
+              fill={true}
+            />
+          </figure>
+          <article>
+            <h2>{post.title}</h2>
+
+            <nav aria-label="Breadcrumb" className={styling.breadcrumbs}>
+              <ol>
+                {post.categories.map((_, index) => (
+                  <BreadCrumb
+                    categories={post.categories}
+                    index={index}
+                    key={index}
+                  />
+                ))}
+              </ol>
+            </nav>
+
+            <div className={styling.metaData}>
+              <span> {post.author} </span>
+              <time className={styling.date}> {post.date} </time>
+            </div>
+
+            <p> {post.content} </p>
+          </article>
         </section>
       )}
-      {/* <ShareButtons
+      <ShareButtons
         url={`https://news.labrokes.be/${post.link}`}
         title={post.title}
         image={post.featured_image}
-      /> */}
+      />
       <aside ref={ref}></aside>
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>
   );
 }
+
+const BreadCrumb = ({
+  index,
+  categories,
+}: {
+  index: number;
+  categories: string[];
+}) => {
+  const router = useRouter();
+
+  const createSlug = (categories: string[], index: number) => {
+    const slicedCategories = categories.slice(0, index + 1); // Slice up to index (inclusive)
+    const slug = slicedCategories.join("/"); // Join array elements with '/'
+
+    return `/${slug}`; // Ensure slug starts with '/'
+  };
+
+  return (
+    <li>
+      <a
+        href=""
+        onClick={() =>
+          router.push(`/category/${createSlug(categories, index)}`)
+        }
+      >
+        {categories[index]} {">"}
+      </a>
+    </li>
+  );
+};
