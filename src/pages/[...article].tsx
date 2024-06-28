@@ -23,6 +23,10 @@ import { useEffect, useRef } from "react";
 import ShareButtons from "@/components/ShareButtons/ShareButtons";
 import Image from "next/image";
 import { useRouter } from "next/router";
+
+import UserCircle from "@/assets/images/icons/regular/circle-user.svg";
+import Calendar from "@/assets/images/icons/solid/calendar.svg";
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
 
@@ -129,8 +133,6 @@ export default function Article({
   bannerFlowScript: string;
   similarArticles: ArticleType[];
 }) {
-  console.log(post);
-
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     if (ref.current) {
@@ -142,13 +144,26 @@ export default function Article({
       ref.current.appendChild(script);
     }
   }, []);
-  const router = useRouter;
+
+  useEffect(() => {
+    if (window.twttr) {
+      window.twttr.widgets.load();
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      script.onload = () => {
+        window.twttr.widgets.load();
+      };
+      document.body.appendChild(script);
+    }
+  }, [post.content]);
   return (
     <>
       <Header categories={categories} language={language} />
       <DarkModeSwitch />
       {post && (
-        <section className={styling.content}>
+        <section className={styling.post}>
           <figure className={styling.figure}>
             <Image
               className={styling.image}
@@ -169,24 +184,38 @@ export default function Article({
                     key={index}
                   />
                 ))}
+
+                {post.title}
               </ol>
             </nav>
 
             <div className={styling.metaData}>
-              <span> {post.author} </span>
-              <time className={styling.date}> {post.date} </time>
+              <span>
+                {" "}
+                <UserCircle className={styling.metaIcons} /> {post.author}{" "}
+              </span>
+              <time className={styling.date}>
+                {" "}
+                <Calendar className={styling.metaIcons} />
+                {post.date}{" "}
+              </time>
             </div>
+            <div />
 
-            <p> {post.content} </p>
+            <p
+              className={styling.content}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+
+            <ShareButtons
+              url={`https://news.labrokes.be/${post.link}`}
+              title={post.title}
+              image={post.featured_image}
+            />
           </article>
         </section>
       )}
-      <ShareButtons
-        url={`https://news.labrokes.be/${post.link}`}
-        title={post.title}
-        image={post.featured_image}
-      />
-      <aside ref={ref}></aside>
+      <aside className={styling.ad} ref={ref}></aside>
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>
@@ -196,6 +225,7 @@ export default function Article({
 const BreadCrumb = ({
   index,
   categories,
+  title,
 }: {
   index: number;
   categories: string[];
@@ -217,7 +247,7 @@ const BreadCrumb = ({
           router.push(`/category/${createSlug(categories, index)}`)
         }
       >
-        {categories[index]} {">"}
+        {`${categories[index]} >`}
       </a>
     </li>
   );

@@ -1,17 +1,81 @@
-.content {
-  color: white;
-}
+@import "@styles/variables/colors.less";
 
+.post {
+  color: white;
+  padding: 10px;
+  h2 {
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+  iframe {
+    width: 100%;
+    article {
+      width: 100% !important;
+    }
+  }
+}
+.metaData {
+  margin-bottom: 20px;
+}
 .figure {
   overflow: hidden;
   position: relative;
   border-radius: 15px;
   width: 95vw;
-  height: 45vw;
+  height: 250px;
   margin: 0 auto;
   .image {
     object-fit: cover;
     min-width: 100%;
     min-height: 100%;
   }
+}
+
+.content {
+  font-family: "Raleway";
+  a {
+    color: @red;
+    text-decoration: none;
+  }
+}
+
+.breadcrumbs {
+  ol {
+    font-family: "Roboto";
+    padding: 20px 0px;
+
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    li {
+      display: flex;
+    }
+  }
+  color: @red;
+  font-size: 13px;
+  a {
+    display: flex;
+    color: @red;
+    font-size: 13px;
+    text-decoration: none;
+  }
+}
+
+.metaIcons {
+  path {
+    fill: white;
+  }
+  height: 14px;
+  margin-right: 5px;
+}
+
+.date {
+  margin-left: 10px;
+}
+
+.ad {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
 }
