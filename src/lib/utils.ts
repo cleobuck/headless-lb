@@ -167,3 +167,18 @@ export function fixInternalLinks(html_string) {
 
   return html_string.replace(pattern, replacement);
 }
+
+export const processContent = (content) => {
+  // Normalize line breaks
+  const normalizedContent = content.replace(/\r\n|\r/g, "\n");
+
+  // Split content by double line breaks
+  const paragraphs = normalizedContent.split("\n\n");
+
+  // Wrap each paragraph in <p> tags, ignoring empty paragraphs
+  return paragraphs
+    .map((paragraph) => paragraph.trim())
+    .filter((paragraph) => paragraph)
+    .map((paragraph) => `<p>${paragraph}</p>`)
+    .join("");
+};

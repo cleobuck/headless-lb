@@ -225,7 +225,6 @@ export default function Article({
 const BreadCrumb = ({
   index,
   categories,
-  title,
 }: {
   index: number;
   categories: string[];

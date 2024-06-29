@@ -1,3 +1,5 @@
+@import "@styles/variables/colors.less";
+
 .figure {
   height: 125px;
   width: 125px;
@@ -11,5 +13,77 @@
     min-height: 100%;
     min-width: 100%;
     object-fit: cover;
+  }
+}
+.ad {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+.listAndAside {
+  width: 100vw;
+  padding: 10px;
+
+  h2,
+  h3 {
+    color: white;
+  }
+
+  h2 {
+    font-size: 15px;
+    text-decoration: underline;
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+}
+
+.description {
+  color: white;
+  width: 100vw;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+
+  padding: 10px;
+  a {
+    color: @red;
+    text-decoration: none;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}
+
+.article {
+  display: flex;
+  color: white;
+  padding: 10px;
+  figure {
+    width: 150px;
+    flex: 0 0 150px;
+    margin-right: 10px;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  font-size: 18px;
+  time {
+    flex: 1;
+    font-size: 12px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  p {
+    display: none;
   }
 }

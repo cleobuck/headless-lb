@@ -12,7 +12,12 @@ import { ArticleType, CategoryPostType } from "@/types/PostTypes";
 import { GetServerSidePropsContext } from "next";
 import { CategoryType, SubCategoryType } from "@/types/CategoryTypes";
 import SocialNetworks from "@/components/social-networks/SocialNetworks";
-import { beautifyDate, createArticleLink, timeStampToDate } from "@/lib/utils";
+import {
+  beautifyDate,
+  createArticleLink,
+  processContent,
+  timeStampToDate,
+} from "@/lib/utils";
 import Image from "next/image";
 import Script from "next/script";
 
@@ -84,6 +89,9 @@ export default function CategoryPage({
       ref.current.appendChild(script);
     }
   }, []);
+
+  console.log(processContent(categoryAndPosts.category.description!));
+
   return (
     <>
       <Header categories={categories} language={language} />
@@ -99,13 +107,16 @@ export default function CategoryPage({
               <Article post={post} key={post.id} />
             ))}
           </div>
-
-          <aside id="banner-script" ref={ref}></aside>
+          <aside ref={ref} className={styling.ad}></aside>
         </div>
 
-        <aside className={styling.description}>
-          {categoryAndPosts.category.description}{" "}
-        </aside>
+        <p className={styling.content} />
+        <aside
+          className={styling.description}
+          dangerouslySetInnerHTML={{
+            __html: processContent(categoryAndPosts.category.description!),
+          }}
+        />
       </section>
       <SocialNetworks language={language} />
       <Footer language={language} />;
@@ -120,6 +131,7 @@ const Article = ({ post }: { post: CategoryPostType }) => {
       onClick={() => {
         router.push(post.link);
       }}
+      className={styling.article}
     >
       <figure className={styling.figure}>
         <Image
