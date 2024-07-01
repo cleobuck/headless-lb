@@ -12,6 +12,7 @@ import {
   fetchMostPopularPosts,
   fetchMostRecentPosts,
   fetchFacebookFeeds,
+  getYoutubePlaylist,
 } from "./api";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType } from "@/types/PostTypes";
@@ -52,6 +53,8 @@ export default async function getServerSideProps(
 
   const facebookFeed = await fetchFacebookFeeds(language);
 
+  const videos = await getYoutubePlaylist();
+
   return {
     props: {
       categories,
@@ -85,6 +88,7 @@ export default async function getServerSideProps(
       })),
       advertisementBanner,
       facebookFeed,
+      videos,
     },
   };
 }

@@ -14,6 +14,7 @@ import AdBanner from "./ad-banner/AdBanner";
 import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 import { getHeaderWidth } from "@/lib/utils";
 import FacebookFeed from "./facebook-feed/FacebookFeed";
+import VideoPlaylist from "../VideoPlaylist/VideoPlaylist";
 
 const HomeComponent = ({
   categories,
@@ -23,13 +24,8 @@ const HomeComponent = ({
   mostPopularPosts,
   advertisementBanner,
   facebookFeed,
+  videos,
 }: HomeTypes) => {
-  useEffect(() => {
-    console.log(getHeaderWidth());
-  }, []);
-
-  console.log(facebookFeed);
-
   return (
     <>
       <Header categories={categories} language={language} />
@@ -56,6 +52,8 @@ const HomeComponent = ({
           </section>
         </div>
       </div>
+
+      {language === "fr" && <VideoPlaylist videos={videos} />}
 
       <FacebookFeed facebookFeed={facebookFeed} />
 
