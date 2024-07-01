@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styling from "./Header.module.less";
 import Logo from "@/assets/images/ladbrokes-logo.webp";
 import Bars from "@/assets/images/icons/solid/bars.svg";
@@ -16,6 +16,7 @@ type Props = {
   language: langType;
   categories: CategoryType[];
   hideNav?: () => void;
+  className: string;
 };
 
 export default function Header({ categories, language }: Props) {
@@ -26,43 +27,61 @@ export default function Header({ categories, language }: Props) {
 
   return (
     <header
+      id="header"
       className={`${styling.header} ${isNavShown ? styling.toggledHeader : ""}`}
     >
-      <Image
-        src={Logo}
-        alt="ladbrokes logo"
-        className={styling.logo}
-        onClick={() => router.push("/")}
-      />
+      <div className={styling.content}>
+        <Image
+          src={Logo}
+          alt="ladbrokes logo"
+          className={styling.logo}
+          onClick={() => router.push("/")}
+        />
 
-      {isNavShown && (
         <Nav
           categories={categories}
           language={language}
           hideNav={() => showNav(false)}
+          className={isNavShown ? styling.navShown : ""}
         />
-      )}
 
-      <Bars
-        onClick={() => showNav((isNavShown) => !isNavShown)}
-        className={styling.bars}
-      />
-      <MagnifyingGlass
-        onClick={() => setSearch((isSearchShown) => !isSearchShown)}
-        className={styling.magnifyingGlass}
-      />
+        <Bars
+          onClick={() => showNav((isNavShown) => !isNavShown)}
+          className={styling.bars}
+        />
+        <MagnifyingGlass
+          onClick={() => setSearch((isSearchShown) => !isSearchShown)}
+          className={styling.magnifyingGlass}
+        />
+      </div>
 
       {isSearchShown && <Search close={() => setSearch(false)} />}
     </header>
   );
 }
 
-const Nav = ({ categories, language, hideNav }: Props) => {
+const Nav = ({ categories, language, hideNav, className }: Props) => {
   const [isLanguageMenuOpen, openLanguageMenu] = useState(false);
+  const languageRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (window.innerWidth < 767) {
+      languageRef.current!.addEventListener("click", () =>
+        openLanguageMenu((isLanguageMenuOpen) => !isLanguageMenuOpen)
+      );
+    } else {
+      languageRef.current!.addEventListener("mouseenter", () =>
+        openLanguageMenu(true)
+      );
+      languageRef.current!.addEventListener("mouseleave", () =>
+        openLanguageMenu(false)
+      );
+    }
+  }, []);
 
   return (
-    <nav className={styling.nav}>
-      <ul>
+    <nav className={`${className} ${styling.nav}`}>
+      <ul className={styling.topNav}>
         {categories
           .filter((category) => ![1, 9].includes(category.id))
           .reverse()
@@ -71,9 +90,12 @@ const Nav = ({ categories, language, hideNav }: Props) => {
           ))}
 
         <li className={styling.topNavItem}> Casino </li>
-        <li className={styling.topNavItem}>
+        <li className={`${styling.topNavItem}`}>
           {language === "fr" ? "Promotions" : "Promoties"}{" "}
         </li>
+
+        <li aria-hidden={true} className={styling.separation}></li>
+
         <li className={styling.topNavItem}>
           {language === "fr" ? "S'identifier" : "Inloggen"}{" "}
         </li>
@@ -82,11 +104,7 @@ const Nav = ({ categories, language, hideNav }: Props) => {
             {language === "fr" ? "S'enregistrer" : "Registreren"}
           </span>
         </li>
-        <li
-          onClick={() =>
-            openLanguageMenu((isLanguageMenuOpen) => !isLanguageMenuOpen)
-          }
-        >
+        <li ref={languageRef}>
           <div
             className={`${styling.topNavItem} ${
               isLanguageMenuOpen ? styling.topNavOpen : ""
@@ -96,20 +114,48 @@ const Nav = ({ categories, language, hideNav }: Props) => {
             <CaretDown className={styling.caretDown} />
           </div>
 
-          {isLanguageMenuOpen && <LanguageMenu hideNav={hideNav!} />}
+          <LanguageMenu
+            hideNav={hideNav!}
+            isLanguageMenuOpen={isLanguageMenuOpen}
+          />
         </li>
       </ul>
     </nav>
   );
 };
 
-const LanguageMenu = ({ hideNav }: { hideNav: () => void }) => {
-  const router = useRouter();
+const LanguageMenu = ({
+  hideNav,
+  isLanguageMenuOpen,
+}: {
+  hideNav: () => void;
+  isLanguageMenuOpen: boolean;
+}) => {
+  const [isHover, setHover] = useState("");
+  const nlRef = useRef<HTMLLIElement>(null);
+
+  const frRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (window.innerWidth > 767) {
+      nlRef.current!.addEventListener("mouseenter", () => setHover("nl"));
+      nlRef.current!.addEventListener("mouseleave", () => setHover(""));
+      frRef.current!.addEventListener("mouseenter", () => setHover("fr"));
+      frRef.current!.addEventListener("mouseleave", () => setHover(""));
+    }
+  }, []);
 
   return (
-    <ul className={styling.secondaryLevelNav}>
+    <ul
+      className={`${isLanguageMenuOpen ? styling.secondaryNavVisible : ""} ${
+        styling.secondaryLevelNav
+      }`}
+    >
       <li
-        className={styling.secondaryNavItems}
+        ref={frRef}
+        className={`${styling.secondaryNavItems} ${
+          isHover == "fr" ? styling.secondaryNavItemHover : ""
+        }`}
         onClick={() => {
           hideNav();
           setLanguage("fr");
@@ -118,7 +164,10 @@ const LanguageMenu = ({ hideNav }: { hideNav: () => void }) => {
         FR
       </li>
       <li
-        className={styling.secondaryNavItems}
+        ref={nlRef}
+        className={`${styling.secondaryNavItems} ${
+          isHover == "nl" ? styling.secondaryNavItemHover : ""
+        }`}
         onClick={() => {
           hideNav();
           setLanguage("nl");
@@ -139,11 +188,22 @@ const CategoryItem = ({
 }) => {
   const [isSecondNavOpen, showSecondNav] = useState(false);
 
-  const router = useRouter();
+  const ref = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (window.innerWidth < 767) {
+      ref.current!.addEventListener("click", () =>
+        showSecondNav((isShown) => !isShown)
+      );
+    } else {
+      ref.current!.addEventListener("mouseenter", () => showSecondNav(true));
+      ref.current!.addEventListener("mouseleave", () => showSecondNav(false));
+    }
+  }, []);
 
   return (
     <>
-      <li onClick={() => showSecondNav((isShown) => !isShown)}>
+      <li ref={ref}>
         <div
           className={`${styling.topNavItem} ${
             isSecondNavOpen ? styling.topNavOpen : ""
@@ -151,25 +211,52 @@ const CategoryItem = ({
         >
           {category.name} <CaretDown className={styling.caretDown} />
         </div>
-        {category.children && isSecondNavOpen && (
-          <ul className={styling.secondaryLevelNav}>
+        {category.children && (
+          <ul
+            className={`${styling.secondaryLevelNav} ${
+              isSecondNavOpen ? styling.secondaryNavVisible : ""
+            }`}
+          >
             {category.children.map((subCategory, index) => (
-              <li
-                className={styling.secondaryNavItems}
+              <SecondaryNavItem
                 key={index}
-                onClick={() => {
-                  router.push(
-                    `/category/${category.slug}/${subCategory.slug}/`
-                  );
-                  hideNav();
-                }}
-              >
-                {subCategory.name}
-              </li>
+                slug={`${category.slug}/${subCategory.slug}/`}
+                name={subCategory.name}
+                hideNav={hideNav}
+              />
             ))}
           </ul>
         )}
       </li>
     </>
+  );
+};
+
+const SecondaryNavItem = ({ slug, name, hideNav }) => {
+  const router = useRouter();
+
+  const [isHover, setHover] = useState(false);
+  const ref = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (window.innerWidth > 767) {
+      ref.current!.addEventListener("mouseenter", () => setHover(true));
+      ref.current!.addEventListener("mouseleave", () => setHover(false));
+    }
+  }, []);
+
+  return (
+    <li
+      ref={ref}
+      className={`${styling.secondaryNavItems} ${
+        isHover ? styling.secondaryNavItemHover : ""
+      }`}
+      onClick={() => {
+        router.push(`/category/${slug}`);
+        hideNav();
+      }}
+    >
+      {name}
+    </li>
   );
 };

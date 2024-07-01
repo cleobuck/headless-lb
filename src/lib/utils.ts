@@ -182,3 +182,9 @@ export const processContent = (content) => {
     .map((paragraph) => `<p>${paragraph}</p>`)
     .join("");
 };
+
+export const getHeaderWidth = () => {
+  const header = document.getElementById("header");
+
+  return header?.scrollWidth;
+};

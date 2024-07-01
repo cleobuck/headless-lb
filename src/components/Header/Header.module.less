@@ -1,4 +1,4 @@
-@import "@styles/variables/colors.less";
+@import "@styles/variables";
 
 @headerHeight: 80px;
 
@@ -6,23 +6,45 @@
   height: @headerHeight;
   width: 100vw;
   background: @red;
-  display: flex;
-  align-items: center;
+
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    @media @tablet {
+      max-width: @maxcontentwidth;
+      margin: 0 auto;
+    }
+  }
 
   flex-wrap: wrap;
   position: relative;
+  li {
+    cursor: pointer;
+  }
 }
 
 .logo {
   width: 150px;
   height: auto;
   padding-left: 15px;
+  cursor: pointer;
+
+  @media @tablet {
+    margin-right: 50px;
+    width: 200px;
+  }
 }
 
 .bars {
   margin-left: auto;
   fill: white;
   width: 22px;
+
+  @media @tablet {
+    display: none;
+  }
 }
 
 .magnifyingGlass {
@@ -31,10 +53,17 @@
   margin: 0 5px;
   margin-left: 15px;
   margin-right: 10px;
+
+  cursor: pointer;
 }
 
 .nav {
   position: absolute;
+
+  display: none;
+  &.navShown {
+    display: block;
+  }
 
   top: @headerHeight;
   left: 0;
@@ -44,6 +73,18 @@
   width: 100%;
   ul {
     list-style-type: none;
+  }
+
+  @media @tablet {
+    display: block;
+    position: static;
+    width: auto;
+    max-width: @maxcontentwidth;
+    margin-left: auto;
+    ul.topNav {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 .highlightedLi {
@@ -58,11 +99,11 @@
   font-family: "Roboto";
   font-weight: 600;
   font-size: 14px;
-  padding-left: 15px;
-  &.topNavOpen {
-    background: @darkGreyNav;
+  &:hover {
+    color: black;
   }
 
+  padding-left: 15px;
   .highlightedNavItem {
     background: black;
     color: white;
@@ -80,6 +121,21 @@
     fill: white;
     margin-left: 10px;
   }
+  &.topNavOpen {
+    background: @darkGreyNav;
+  }
+
+  @media @tablet {
+    margin-right: 20px;
+    position: relative;
+    &.topNavOpen {
+      background: none;
+      color: black;
+      .caretDown {
+        fill: black;
+      }
+    }
+  }
 }
 .secondaryNavItems {
   height: 40px;
@@ -88,6 +144,37 @@
   font-size: 11px;
   font-family: "Roboto";
   font-weight: 400;
+  width: 156px;
+  padding-left: 15px;
+}
 
-  padding-left: 20px;
+.secondaryLevelNav {
+  display: none;
+
+  &.secondaryNavVisible {
+    display: block;
+  }
+  @media @tablet {
+    position: absolute;
+    top: @headerHeight - 20px;
+    background: @red;
+    padding-top: 10px;
+    li.secondaryNavItemHover {
+      background: @darkGreyNav;
+      color: white;
+    }
+    a {
+      font-weight: 500;
+    }
+  }
+}
+
+@media @tablet {
+  .separation {
+    height: 14px;
+    width: 2px;
+    background: white;
+    display: flex;
+    align-items: center;
+  }
 }
