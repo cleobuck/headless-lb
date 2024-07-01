@@ -9,4 +9,5 @@ export type HomeTypes = {
   mostRecentPosts: ArticleType[];
   mostPopularPosts: ArticleType[];
   advertisementBanner: AdBannerType[];
+  facebookFeed: string;
 };

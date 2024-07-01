@@ -1,3 +1,5 @@
+@import "@styles/variables";
+
 .postItem {
   display: flex;
   align-items: center;
@@ -82,6 +84,11 @@
     .postItem {
       color: black;
     }
+  }
+
+  @media @tablet {
+    margin-right: 20px;
+    flex: 0 0 60%;
   }
 }
 

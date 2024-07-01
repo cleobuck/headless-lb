@@ -11,6 +11,7 @@ import {
   fetchFeaturedPosts,
   fetchMostPopularPosts,
   fetchMostRecentPosts,
+  fetchFacebookFeeds,
 } from "./api";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType } from "@/types/PostTypes";
@@ -49,6 +50,8 @@ export default async function getServerSideProps(
 
   const advertisementBanner = await fetchAdvertisementBanner(language);
 
+  const facebookFeed = await fetchFacebookFeeds(language);
+
   return {
     props: {
       categories,
@@ -81,6 +84,7 @@ export default async function getServerSideProps(
         ),
       })),
       advertisementBanner,
+      facebookFeed,
     },
   };
 }

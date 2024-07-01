@@ -13,6 +13,7 @@ import SocialNetworks from "../social-networks/SocialNetworks";
 import AdBanner from "./ad-banner/AdBanner";
 import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 import { getHeaderWidth } from "@/lib/utils";
+import FacebookFeed from "./facebook-feed/FacebookFeed";
 
 const HomeComponent = ({
   categories,
@@ -21,10 +22,13 @@ const HomeComponent = ({
   mostRecentPosts,
   mostPopularPosts,
   advertisementBanner,
+  facebookFeed,
 }: HomeTypes) => {
   useEffect(() => {
     console.log(getHeaderWidth());
   }, []);
+
+  console.log(facebookFeed);
 
   return (
     <>
@@ -40,15 +44,21 @@ const HomeComponent = ({
               mostRecentPosts={mostRecentPosts}
               language={language}
             />
-            <MostPopularPosts
-              mostPopularPosts={mostPopularPosts}
-              language={language}
-            />
 
-            <Trends language={language} />
+            <div>
+              <MostPopularPosts
+                mostPopularPosts={mostPopularPosts}
+                language={language}
+              />
+
+              <Trends language={language} />
+            </div>
           </section>
         </div>
       </div>
+
+      <FacebookFeed facebookFeed={facebookFeed} />
+
       <SocialNetworks language={language} />
       <Footer language={language} />
     </>

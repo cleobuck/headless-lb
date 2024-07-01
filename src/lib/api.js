@@ -70,6 +70,10 @@ export const fetchSimilarArticles = async (categories, currentPostId, lang) => {
   );
 };
 
+export const fetchFacebookFeeds = async (lang) => {
+  return await _fetch(`facebook-feed-content?lang=${lang}`, true);
+};
+
 export const searchArticles = async (searchPhrase) => {
   return await _fetch(`posts?search=${searchPhrase}`);
 };
