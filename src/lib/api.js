@@ -32,8 +32,8 @@ export const fetchFeaturedPosts = (lang) => {
   return _fetch(`featured-posts?lang=${lang}`, true);
 };
 
-export const fetchMostRecentPosts = (lang) => {
-  return _fetch(`most-recent-posts?lang=${lang}`, true);
+export const fetchMostRecentPosts = (lang, page = 1) => {
+  return _fetch(`most-recent-posts?lang=${lang}&page=${page}`, true);
 };
 
 export const fetchMostPopularPosts = (lang) => {

@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styling from "./MostRecentPosts.module.less";
 type Props = { language: langType; mostRecentPosts: ArticleType[] };
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { langType } from "@/types/generalTypes";
 import { ArticleType } from "@/types/PostTypes";
+import { fetchMostRecentPosts } from "@/lib/api";
 
 export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
+  const [posts, setPosts] = useState(mostRecentPosts);
+
+  const [page, setPage] = useState(2);
+
   return (
     <section className={styling.mostRecentPosts}>
       <h2>
         {language === "fr" ? "Les plus récents" : "De meest recente artikels"}
       </h2>
 
-      {mostRecentPosts.map((post, index) => (
+      {posts.map((post, index) => (
         <Post post={post} key={index} />
       ))}
+
+      <button
+        onClick={async () => {
+          const morePosts = await fetchMostRecentPosts(language, page);
+
+          setPosts((posts) => [...posts, ...morePosts]);
+          setPage((page) => page + 1);
+        }}
+      >
+        LOAD MORE
+      </button>
     </section>
   );
 }
