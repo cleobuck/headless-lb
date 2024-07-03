@@ -12,6 +12,7 @@ import {
   fetchMostRecentPosts,
   fetchFacebookFeeds,
   getYoutubePlaylist,
+  searchArticles,
 } from "./api";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType } from "@/types/PostTypes";
@@ -38,6 +39,14 @@ export default async function getServerSideProps(
         },
       };
     }
+  }
+
+  const searchTerm = context.query.s || "";
+
+  let searchResults = "";
+
+  if (searchTerm) {
+    searchResults = await searchArticles(searchTerm);
   }
 
   const categories = await fetchCategories(language);
@@ -88,6 +97,7 @@ export default async function getServerSideProps(
       advertisementBanner,
       facebookFeed,
       videos,
+      searchResults,
     },
   };
 }

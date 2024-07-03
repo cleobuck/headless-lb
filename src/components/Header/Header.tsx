@@ -25,6 +25,12 @@ export default function Header({ categories, language }: Props) {
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (router.query.s) {
+      setSearch(false);
+    }
+  }, [router.query?.s]);
+
   return (
     <header
       id="header"

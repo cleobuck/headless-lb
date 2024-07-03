@@ -15,6 +15,9 @@ import DarkModeSwitch from "../DarkModeSwitch/DarkModeSwitch";
 import { getHeaderWidth } from "@/lib/utils";
 import FacebookFeed from "./facebook-feed/FacebookFeed";
 import VideoPlaylist from "../VideoPlaylist/VideoPlaylist";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
+import SearchPage from "../Search/SearchPage";
 
 const HomeComponent = ({
   categories,
@@ -25,34 +28,39 @@ const HomeComponent = ({
   advertisementBanner,
   facebookFeed,
   videos,
+  searchResults,
 }: HomeTypes) => {
   return (
     <>
       <Header categories={categories} language={language} />
-      <div className={styling.home}>
-        <div className="content">
-          <DarkModeSwitch />
-          <AdBanner ads={advertisementBanner} />
-          <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
-          <section className={styling.postBlock}>
-            <MostRecentPosts
-              mostRecentPosts={mostRecentPosts}
-              language={language}
-            />
+      {searchResults ? (
+        <SearchPage searchResults={searchResults} />
+      ) : (
+        <div className={styling.home}>
+          <div className="content">
+            <DarkModeSwitch />
+            <AdBanner ads={advertisementBanner} />
+            <FeaturedPosts featuredPosts={featuredPosts} language={language} />
 
-            <div>
-              <MostPopularPosts
-                mostPopularPosts={mostPopularPosts}
+            <section className={styling.postBlock}>
+              <MostRecentPosts
+                mostRecentPosts={mostRecentPosts}
                 language={language}
               />
 
-              <Trends language={language} />
-            </div>
-          </section>
-        </div>
-      </div>
+              <div>
+                <MostPopularPosts
+                  mostPopularPosts={mostPopularPosts}
+                  language={language}
+                />
 
+                <Trends language={language} />
+              </div>
+            </section>
+          </div>
+        </div>
+      )}
       {language === "fr" && <VideoPlaylist videos={videos} />}
 
       <FacebookFeed facebookFeed={facebookFeed} />

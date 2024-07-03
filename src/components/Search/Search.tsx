@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type Props = { close: () => void };
 
 import styling from "./Search.module.less";
 import MagnifyingGlass from "@/assets/images/icons/solid/magnifying-glass.svg";
 import Xmark from "@/assets/images/icons/solid/xmark.svg";
+import { useRouter } from "next/router";
 
 export default function Search({ close }: Props) {
+  const router = useRouter();
+
   const [searchValue, setSearchValue] = useState("");
+
+  const buttonRef = useRef();
+
+  useEffect(() => {
+    const enterSearch = (e) => {
+      if (e.key === "Enter") {
+        buttonRef.current.click();
+      }
+    };
+
+    window.addEventListener("keydown", enterSearch);
+
+    return () => window.removeEventListener("keydown", enterSearch);
+  }, []);
   return (
     <div className={styling.searchModal}>
       <Xmark className={styling.xMark} onClick={() => close()} />
@@ -19,10 +36,15 @@ export default function Search({ close }: Props) {
           className={styling.input}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-        <MagnifyingGlass
-          onClick={() => console.log(` search for ${searchValue}`)}
-          className={styling.icon}
-        />
+
+        <button
+          ref={buttonRef}
+          onClick={() => {
+            router.push(`/?s=${searchValue} `);
+          }}
+        >
+          <MagnifyingGlass className={styling.icon} />
+        </button>
       </div>
     </div>
   );
