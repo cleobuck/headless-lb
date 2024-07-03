@@ -2,7 +2,6 @@ import {
   beautifyDate,
   createArticleLink,
   getLanguage,
-  setLanguage,
   timeStampToDate,
 } from "./utils";
 import {

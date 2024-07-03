@@ -13,6 +13,8 @@ interface Video {
 
 //
 
+//https://chatgpt.com/share/1ccfc3c7-90c0-41e6-a83e-89f7dfd030f1
+
 // CREATE A RELOADER TO SYNC VIDEOS TO DATABASE
 // CREATE CUSTOM endpoint to fetch those
 
