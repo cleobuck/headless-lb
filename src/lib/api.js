@@ -48,9 +48,9 @@ export const fetchCategories = async (lang) => {
   return categories ? formatCategories(categories) : undefined;
 };
 
-export const fetchCategoryAndPosts = async (categorySlug, lang) => {
+export const fetchCategoryAndPosts = async (categorySlug, lang, page = 1) => {
   return await _fetch(
-    `posts-by-category-slug/${categorySlug}?lang=${lang}`,
+    `posts-by-category-slug/${categorySlug}?lang=${lang}&page=${page}`,
     true
   );
 };

@@ -1,5 +1,9 @@
+@import "@styles/variables";
+
 .facebook-feed {
   width: 100vw;
+  max-width: @maxcontentwidth;
+  margin: 0 auto;
 
   .cff-item {
     background: white;
@@ -11,5 +15,74 @@
 
   .cff-bottom {
     display: none;
+  }
+
+  @media @tablet {
+    .cff-posts-wrap {
+      display: flex;
+      gap: 15px;
+    }
+
+    .Cff-item {
+      width: 200px;
+    }
+  }
+}
+
+.cff-author-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+}
+
+.cff-date {
+  padding-left: 50px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.cff-page-name {
+  padding-left: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  a {
+    color: black;
+  }
+}
+
+.cff-author {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.cff-expand {
+  display: none;
+}
+// .cff-share-container {
+//   display: none;
+// }
+
+.cff-post-links {
+  display: flex;
+  font-size: 11px;
+  padding-top: 5px;
+  a {
+    color: black;
+  }
+}
+
+.cff-share-tooltip {
+  display: none;
+}
+
+.cff-media-link {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  font-size: 19px;
+  a {
+    color: black;
   }
 }

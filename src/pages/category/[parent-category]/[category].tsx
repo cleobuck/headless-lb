@@ -22,8 +22,9 @@ import Image from "next/image";
 import Script from "next/script";
 
 import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { Router, useRouter } from "next/router";
+import LoadMore from "@/components/LoadMore/LoadMore";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -46,6 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       language,
+      slug: category,
       categories,
       categoryAndPosts: {
         ...categoryAndPosts,
@@ -69,7 +71,9 @@ export default function CategoryPage({
   language,
   categoryAndPosts,
   bannerFlowScript,
+  slug,
 }: {
+  slug: string;
   categories: CategoryType[];
   language: langType;
   bannerFlowScript: string;
@@ -78,6 +82,9 @@ export default function CategoryPage({
     posts: CategoryPostType[];
   };
 }) {
+  const [posts, setPosts] = useState(categoryAndPosts.posts);
+
+  const [page, setPage] = useState(2);
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     if (ref.current) {
@@ -103,9 +110,22 @@ export default function CategoryPage({
 
             <h3> {categoryAndPosts.category.name} </h3>
 
-            {categoryAndPosts.posts.map((post) => (
+            {posts.map((post) => (
               <Article post={post} key={post.id} />
             ))}
+
+            <LoadMore
+              onClick={async () => {
+                const morePosts = await fetchCategoryAndPosts(
+                  slug,
+                  language,
+                  page
+                );
+
+                setPosts((posts) => [...posts, ...morePosts.posts]);
+                setPage((page) => page + 1);
+              }}
+            />
           </div>
           <aside ref={ref} className={styling.ad}></aside>
         </div>

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { langType } from "@/types/generalTypes";
 import { ArticleType } from "@/types/PostTypes";
 import { fetchMostRecentPosts } from "@/lib/api";
+import LoadMore from "@/components/LoadMore/LoadMore";
 
 export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
   const [posts, setPosts] = useState(mostRecentPosts);
@@ -22,16 +23,14 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
         <Post post={post} key={index} />
       ))}
 
-      <button
+      <LoadMore
         onClick={async () => {
           const morePosts = await fetchMostRecentPosts(language, page);
 
           setPosts((posts) => [...posts, ...morePosts]);
           setPage((page) => page + 1);
         }}
-      >
-        LOAD MORE
-      </button>
+      />
     </section>
   );
 }
