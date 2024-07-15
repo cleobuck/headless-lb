@@ -31,6 +31,13 @@ module.exports = withLess({
         port: "", // typically left empty for default ports
         pathname: "/**", // match all paths under the domain
       },
+
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        port: "", // typically left empty for default ports
+        pathname: "/**", // match all paths under the domain
+      },
     ],
   },
 });

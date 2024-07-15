@@ -30,6 +30,7 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
           setPosts((posts) => [...posts, ...morePosts]);
           setPage((page) => page + 1);
         }}
+        language={language}
       />
     </section>
   );

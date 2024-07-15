@@ -115,6 +115,7 @@ export default function CategoryPage({
             ))}
 
             <LoadMore
+              language={language}
               onClick={async () => {
                 const morePosts = await fetchCategoryAndPosts(
                   slug,
