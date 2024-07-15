@@ -1,3 +1,5 @@
+@import "@styles/variables";
+
 .container {
   // display: flex;
   // flex-direction: row;
@@ -9,22 +11,41 @@
   margin: 100px auto;
   font-family: "Roboto";
   display: flex;
+  flex-direction: column;
 
+  @media @tablet {
+    flex-direction: row;
+  }
   iframe {
     flex: 1;
     border: none;
+    order: 1;
+    @media @tablet {
+      order: 2;
+    }
   }
 
   .videoList {
-    height: 100%;
+    @media @tablet {
+      height: 100%;
+    }
 
-    width: 32%;
+    order: 2;
+
+    @media @tablet {
+      order: 1;
+      width: 32%;
+    }
     position: relative;
 
     .scrollVideoList {
       overflow-y: scroll;
 
-      height: 374px;
+      height: 250px;
+
+      @media @tablet {
+        height: 374px;
+      }
     }
 
     h3 {
@@ -32,6 +53,7 @@
       color: white;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 0 16px;
       font-size: 16px;
       font-weight: 700;
