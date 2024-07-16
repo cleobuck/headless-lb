@@ -22,8 +22,6 @@ interface Video {
 const VideoPlaylist: React.FC = ({ videos }) => {
   const [scrollPosition, setScrollPosition] = useState("top");
 
-  console.log(videos);
-
   const [activeVideo, setActiveVideo] = useState(0);
 
   return (

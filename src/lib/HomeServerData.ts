@@ -13,6 +13,7 @@ import {
   fetchFacebookFeeds,
   getYoutubePlaylist,
   searchArticles,
+  fetchPageMetaData,
 } from "./api";
 import { GetServerSidePropsContext } from "next";
 import { ArticleType } from "@/types/PostTypes";
@@ -63,6 +64,8 @@ export default async function getServerSideProps(
 
   const videos = await getYoutubePlaylist();
 
+  const HeadData = await fetchPageMetaData(121);
+
   return {
     props: {
       categories,
@@ -98,6 +101,7 @@ export default async function getServerSideProps(
       facebookFeed,
       videos,
       searchResults,
+      head: HeadData.yoast_head_json,
     },
   };
 }

@@ -97,8 +97,6 @@ export default function CategoryPage({
     }
   }, []);
 
-  console.log(processContent(categoryAndPosts.category.description!));
-
   return (
     <>
       <Header categories={categories} language={language} />

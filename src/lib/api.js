@@ -82,6 +82,10 @@ export const getYoutubePlaylist = async () => {
   return await _fetch(`youtube-playlist`, true);
 };
 
+export const fetchPageMetaData = async (id) => {
+  return await _fetch(`pages/${id}`);
+};
+
 // export const getYoutubePlaylist = async () => {
 //   const apiKey = "AIzaSyBwU5PjF4KWwS7eEyQ8CNHfaVIDq25Ni1M"; // Replace with your actual API key
 //   const channelId = "UCtpikuBhVyc0sjiOmAsJE7Q"; // Replace with the ID of the YouTube channel
