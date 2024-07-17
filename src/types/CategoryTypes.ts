@@ -1,3 +1,5 @@
+import { CategoryPostType } from "./PostTypes";
+
 export type SubCategoryType = {
   id: number;
   name: string;
@@ -30,4 +32,24 @@ export type SeoData = {
   wpseo_focuskw: string;
   wpseo_linkdex: string;
   wpseo_content_score: string;
+  alternate_url: string;
+};
+
+export type CategoryPageServerDataType = {
+  language: string;
+  slug: string;
+  categories: CategoryType[];
+  categoryAndPosts: CategoryAndPostsType;
+  bannerFlowScript: string;
+};
+
+type CategoryAndPostsType = {
+  category: {
+    id: string;
+    name: string;
+    description: string;
+    parent_category: string;
+    yoast_meta: SeoData;
+  };
+  posts: CategoryPostType[];
 };
