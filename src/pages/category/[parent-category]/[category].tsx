@@ -19,12 +19,12 @@ import {
   timeStampToDate,
 } from "@/lib/utils";
 import Image from "next/image";
-import Script from "next/script";
 
 import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
-import { RefObject, useEffect, useRef, useState } from "react";
-import { Router, useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import LoadMore from "@/components/LoadMore/LoadMore";
+import Head from "next/head";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
@@ -82,7 +82,13 @@ export default function CategoryPage({
     posts: CategoryPostType[];
   };
 }) {
+  const router = useRouter();
+
+  const currentUrl = `${process.env.BASE_URL}${router.asPath}`;
+
   const [posts, setPosts] = useState(categoryAndPosts.posts);
+
+  console.log(categoryAndPosts);
 
   const [page, setPage] = useState(2);
   const ref = useRef<HTMLElement>(null);
@@ -99,6 +105,26 @@ export default function CategoryPage({
 
   return (
     <>
+      <Head>
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+
+        <title>{categoryAndPosts.category.yoast_meta.wpseo_title}</title>
+
+        <meta
+          name="description"
+          content={categoryAndPosts.category.yoast_meta.wpseo_desc}
+        />
+
+        <link
+          rel="canonical"
+          href={
+            categoryAndPosts.category.yoast_meta.wpseo_canonical || currentUrl
+          }
+        />
+      </Head>
       <Header categories={categories} language={language} />
       <DarkModeSwitch />
       <section className={styling.content}>
