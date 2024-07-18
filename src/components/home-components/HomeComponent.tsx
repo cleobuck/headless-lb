@@ -68,6 +68,11 @@ const HomeComponent = ({
           hrefLang="nl"
         ></link>
 
+        <meta property="article:publisher" content={article_publisher} />
+        <meta
+          property="article:modified_time"
+          content={article_modified_time}
+        />
         {/* Open Graph tags */}
         <meta
           property="og:locale"
@@ -77,7 +82,7 @@ const HomeComponent = ({
         <meta
           property="og:locale:alternate"
           content={language === "fr" ? "nl_BE" : "fr_FR"}
-        ></meta>
+        />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={og_title} />
         <meta property="og:description" content={og_description} />

@@ -25,14 +25,19 @@ export type ServerCategoryType = {
 };
 
 export type SeoData = {
-  wpseo_keywordsynonyms: string;
+  wpseo_keywordsynonyms: string[]; // Assuming this is an array of strings
   wpseo_title: string;
   wpseo_desc: string;
-  wpseo_canonical: string;
   wpseo_focuskw: string;
   wpseo_linkdex: string;
   wpseo_content_score: string;
+  wpseo_opengraph_title: string;
+  site_name: string;
+  wpseo_opengraph_description: string;
   alternate_url: string;
+  twitter_card: string;
+  twitter_site: string;
+  wpseo_canonical: string;
 };
 
 export type CategoryPageServerDataType = {

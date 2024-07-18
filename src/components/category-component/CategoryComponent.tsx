@@ -52,7 +52,7 @@ export default function CategoryComponent({
         />
         <link
           rel="alternate"
-          href={categoryAndPosts.category.yoast_meta.alternate_url}
+          href={`${process.env.BASE_URL}${categoryAndPosts.category.yoast_meta.alternate_url}`}
           hrefLang={language === "fr" ? "nl" : "fr"}
         />
 
@@ -60,6 +60,15 @@ export default function CategoryComponent({
           rel="alternate"
           href={currentUrl}
           hrefLang={language === "nl" ? "nl" : "fr"}
+        />
+
+        <meta
+          property="og:locale"
+          content={language === "nl" ? "nl_BE" : "fr_FR"}
+        />
+        <meta
+          property="og:locale:alternate"
+          content={language === "fr" ? "nl_BE" : "fr_FR"}
         />
 
         <title>{categoryAndPosts.category.yoast_meta.wpseo_title}</title>
@@ -74,6 +83,33 @@ export default function CategoryComponent({
           href={
             categoryAndPosts.category.yoast_meta.wpseo_canonical || currentUrl
           }
+        />
+        <meta property="og:image:width" content={"1200"} />
+        <meta property="og:image:height" content={"675"} />
+
+        <meta property="og:type" content="website" />
+
+        <meta property="og:url" content={currentUrl} />
+
+        <meta
+          property="og:description"
+          content={
+            categoryAndPosts.category.yoast_meta.wpseo_opengraph_description
+          }
+        />
+
+        <meta
+          property="og:title"
+          content={categoryAndPosts.category.yoast_meta.wpseo_opengraph_title}
+        />
+
+        <meta
+          name="twitter:card"
+          content={categoryAndPosts.category.yoast_meta.twitter_card}
+        />
+        <meta
+          name="twitter:site"
+          content={categoryAndPosts.category.yoast_meta.twitter_site}
         />
       </Head>
       <Header categories={categories} language={language} />
