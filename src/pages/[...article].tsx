@@ -143,16 +143,19 @@ export default function Article({
       // Assuming 'myDiv' is the ID of the div where you want to append the script
       ref.current.appendChild(script);
     }
-  }, []);
+  }, [bannerFlowScript]);
 
   useEffect(() => {
+    //@ts-ignore
     if (window.twttr) {
+      //@ts-ignore
       window.twttr.widgets.load();
     } else {
       const script = document.createElement("script");
       script.src = "https://platform.twitter.com/widgets.js";
       script.async = true;
       script.onload = () => {
+        //@ts-ignore
         window.twttr.widgets.load();
       };
       document.body.appendChild(script);

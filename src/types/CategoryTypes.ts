@@ -1,4 +1,5 @@
 import { CategoryPostType } from "./PostTypes";
+import { langType } from "./generalTypes";
 
 export type SubCategoryType = {
   id: number;
@@ -6,7 +7,7 @@ export type SubCategoryType = {
   slug: string;
   description?: string;
   parent_category?: string;
-  yoast_meta: SeoData;
+  yoast_meta?: SeoData;
 };
 
 export type CategoryType = {
@@ -41,7 +42,7 @@ export type SeoData = {
 };
 
 export type CategoryPageServerDataType = {
-  language: string;
+  language: langType;
   slug: string;
   categories: CategoryType[];
   categoryAndPosts: CategoryAndPostsType;

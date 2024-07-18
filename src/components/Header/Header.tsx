@@ -19,7 +19,13 @@ type Props = {
   className: string;
 };
 
-export default function Header({ categories, language }: Props) {
+export default function Header({
+  categories,
+  language,
+}: {
+  categories: CategoryType[];
+  language: langType;
+}) {
   const [isNavShown, showNav] = useState(false);
   const [isSearchShown, setSearch] = useState(false);
 
@@ -238,7 +244,15 @@ const CategoryItem = ({
   );
 };
 
-const SecondaryNavItem = ({ slug, name, hideNav }) => {
+const SecondaryNavItem = ({
+  slug,
+  name,
+  hideNav,
+}: {
+  slug: string;
+  name: string;
+  hideNav: () => void;
+}) => {
   const router = useRouter();
 
   const [isHover, setHover] = useState(false);

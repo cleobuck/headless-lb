@@ -147,11 +147,11 @@ const HomeComponent = ({
               </div>
             </section>
           </div>
+          {language === "fr" && <VideoPlaylist videos={videos} />}
+
+          <FacebookFeed facebookFeed={facebookFeed} />
         </div>
       )}
-      {language === "fr" && <VideoPlaylist videos={videos} />}
-
-      <FacebookFeed facebookFeed={facebookFeed} />
 
       <SocialNetworks language={language} />
       <Footer language={language} />

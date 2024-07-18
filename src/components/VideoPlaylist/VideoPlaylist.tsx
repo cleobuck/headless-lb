@@ -1,25 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import styling from "./VideoPlaylist.module.less";
 import Image from "next/image";
+import { VideoType } from "./Videotypes";
 
-interface Video {
-  id: number;
-  title: string;
-  thumbnailUrl: string;
-  videoUrl: string;
-}
-
-// GET YOUTUBE API
-// FETCH LATEST VIDEOS
-
-//
-
-//https://chatgpt.com/share/1ccfc3c7-90c0-41e6-a83e-89f7dfd030f1
-
-// CREATE A RELOADER TO SYNC VIDEOS TO DATABASE
-// CREATE CUSTOM endpoint to fetch those
-
-const VideoPlaylist: React.FC = ({ videos }) => {
+const VideoPlaylist = ({ videos }: { videos: VideoType[] }) => {
   const [scrollPosition, setScrollPosition] = useState("top");
 
   const [activeVideo, setActiveVideo] = useState(0);

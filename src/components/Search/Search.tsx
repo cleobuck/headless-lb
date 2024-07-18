@@ -12,12 +12,12 @@ export default function Search({ close }: Props) {
 
   const [searchValue, setSearchValue] = useState("");
 
-  const buttonRef = useRef();
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    const enterSearch = (e) => {
+    const enterSearch = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        buttonRef.current.click();
+        if (buttonRef?.current) buttonRef.current.click();
       }
     };
 

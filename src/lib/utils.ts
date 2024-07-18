@@ -161,19 +161,19 @@ import parse, { domToReact } from "html-react-parser";
  * Then, we use the replacement string 'data-internal-link="true" href="/blog/$1"',
  * where $1 is a placeholder for the captured ID.
  */
-export function fixInternalLinks(html_string) {
+export function fixInternalLinks(html_string: string) {
   const pattern = /href="https:\/\/yoursite.com\/\?p=(\d+)"/g;
   const replacement = 'data-internal-link="true" href="/blog/$1"';
 
   return html_string.replace(pattern, replacement);
 }
 
-export const processContent = (content) => {
+export const processContent = (content: string) => {
   // Normalize line breaks
   const normalizedContent = content.replace(/\r\n|\r/g, "\n");
 
   // Split content by double line breaks
-  const paragraphs = normalizedContent.split("\n\n");
+  const paragraphs: string[] = normalizedContent.split("\n\n");
 
   // Wrap each paragraph in <p> tags, ignoring empty paragraphs
   return paragraphs

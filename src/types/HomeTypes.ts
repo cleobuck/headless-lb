@@ -1,3 +1,4 @@
+import { VideoType } from "@/components/VideoPlaylist/Videotypes";
 import { CategoryType } from "./CategoryTypes";
 import { AdBannerType, ArticleType } from "./PostTypes";
 import { langType } from "./generalTypes";
@@ -11,6 +12,8 @@ export type HomeTypes = {
   advertisementBanner: AdBannerType[];
   facebookFeed: string;
   head: HeadType;
+  videos: VideoType[];
+  searchResults: any;
 };
 
 export interface HeadType {
