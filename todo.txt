@@ -1,11 +1,11 @@
 - upload on server
 
 
-- add similar articles
 - design search page
 - contact page?
 
-- add possibility to click on parent category
--fix light/dark mode css
+
+- add excerpt on desktop category page
+- fix light/dark mode css
 
 - post SEO 

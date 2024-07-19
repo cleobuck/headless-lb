@@ -199,15 +199,11 @@ const CategoryItem = ({
   hideNav: () => void;
 }) => {
   const [isSecondNavOpen, showSecondNav] = useState(false);
-
+  const router = useRouter();
   const ref = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    if (window.innerWidth < 767) {
-      ref.current!.addEventListener("click", () =>
-        showSecondNav((isShown) => !isShown)
-      );
-    } else {
+    if (window.innerWidth >= 767) {
       ref.current!.addEventListener("mouseenter", () => showSecondNav(true));
       ref.current!.addEventListener("mouseleave", () => showSecondNav(false));
     }
@@ -215,7 +211,20 @@ const CategoryItem = ({
 
   return (
     <>
-      <li ref={ref}>
+      <li
+        ref={ref}
+        onClick={() => {
+          if (
+            (window.innerWidth < 767 && isSecondNavOpen) ||
+            window.innerWidth >= 767
+          ) {
+            router.push(`/category/${category.slug}`);
+            hideNav();
+          } else {
+            showSecondNav((isShown) => !isShown);
+          }
+        }}
+      >
         <div
           className={`${styling.topNavItem} ${
             isSecondNavOpen ? styling.topNavOpen : ""

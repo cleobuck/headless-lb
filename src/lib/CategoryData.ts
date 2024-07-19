@@ -17,7 +17,7 @@ export default async function getServerSideProps(
 ) {
   const cookies = cookie.parse(context.req.headers.cookie || "");
 
-  const { category } = context.query;
+  const { category, parentCategory } = context.query;
 
   const language = (cookies["lb-language"] || "fr") as langType;
 
@@ -32,7 +32,7 @@ export default async function getServerSideProps(
   const script = bannerFlowScript.script.slice(srcStartIndex, srcEndIndex);
 
   const categoryAndPosts = await await fetchCategoryAndPosts(
-    category,
+    category || parentCategory,
     language
   );
 
@@ -48,7 +48,7 @@ export default async function getServerSideProps(
   return {
     props: {
       language,
-      slug: category,
+      slug: category || parentCategory,
       categories,
       categoryAndPosts: {
         ...categoryAndPosts,

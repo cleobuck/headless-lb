@@ -24,8 +24,6 @@ export default function CategoryComponent({
 }: CategoryPageServerDataType) {
   const router = useRouter();
 
-  console.log(categoryAndPosts);
-
   const currentUrl = `${process.env.BASE_URL}${router.asPath}`;
 
   const [posts, setPosts] = useState(categoryAndPosts.posts);
