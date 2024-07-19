@@ -31,6 +31,7 @@ import { useRouter } from "next/router";
 import UserCircle from "@/assets/images/icons/regular/circle-user.svg";
 import Calendar from "@/assets/images/icons/solid/calendar.svg";
 import Head from "next/head";
+import SimilarArticles from "@/components/similar-articles/SimilarArticles";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
@@ -89,9 +90,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (post && post.categories) {
     similarArticles = await fetchSimilarArticles(
-      post.categories.map((item: any) => item.cat_ID)[
-        post.categories.length - 1
-      ],
+      post.first_category_id,
       post.id,
       language
     );
@@ -139,6 +138,8 @@ export default function Article({
   similarArticles: ArticleType[];
 }) {
   const ref = useRef<HTMLElement>(null);
+
+  console.log(post);
   useEffect(() => {
     if (ref.current) {
       const script = document.createElement("script");
@@ -232,6 +233,7 @@ export default function Article({
           <aside className={styling.ad} ref={ref}></aside>
         </div>
       )}
+      <SimilarArticles similarArticles={similarArticles} language={language} />
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>
