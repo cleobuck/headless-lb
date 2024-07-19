@@ -3,16 +3,31 @@
 .post {
   color: white;
   padding: 10px;
-  h2 {
+  h1 {
     font-size: 40px;
     font-weight: 600;
     margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    padding-left: 40px;
+    margin-bottom: 1em;
   }
   iframe {
     width: 100%;
     article {
       width: 100% !important;
     }
+  }
+  p {
+    margin-bottom: 0.9rem;
   }
 }
 .metaData {
@@ -43,17 +58,31 @@
 .breadcrumbs {
   ol {
     font-family: "Roboto";
-    padding: 20px 0px;
-
+    width: 90vw;
     display: flex;
-    flex-wrap: wrap;
     list-style-type: none;
+    padding: 0;
+    margin: 0;
+    gap: 3px;
+
     li {
-      display: flex;
+      white-space: nowrap;
+
+      &:not(:last-of-type) {
+        flex: 0;
+      }
+
+      &:last-of-type {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
   color: @red;
   font-size: 13px;
+  margin-bottom: 20px;
+
   a {
     display: flex;
     color: @red;
@@ -61,7 +90,6 @@
     text-decoration: none;
   }
 }
-
 .metaIcons {
   path {
     fill: white;

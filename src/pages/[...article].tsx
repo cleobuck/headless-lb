@@ -1,5 +1,9 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+
+import "@wordpress/block-library/build-style/common.css";
+import "@wordpress/block-library/build-style/style.css";
+import "@wordpress/block-library/build-style/theme.css";
 import {
   fetchBannerFlowScript,
   fetchCategories,
@@ -176,7 +180,7 @@ export default function Article({
             />
           </figure>
           <article>
-            <h2>{post.title}</h2>
+            <h1>{post.title}</h1>
 
             <nav aria-label="Breadcrumb" className={styling.breadcrumbs}>
               <ol>
@@ -188,7 +192,7 @@ export default function Article({
                   />
                 ))}
 
-                {post.title}
+                <li> {post.title}</li>
               </ol>
             </nav>
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/less": "^3.0.6",
+    "@wordpress/block-library": "^9.3.0",
     "axios": "^1.7.2",
     "cookie": "^0.6.0",
     "html-react-parser": "^5.1.10",
