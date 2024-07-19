@@ -30,6 +30,7 @@ import { useRouter } from "next/router";
 
 import UserCircle from "@/assets/images/icons/regular/circle-user.svg";
 import Calendar from "@/assets/images/icons/solid/calendar.svg";
+import Head from "next/head";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { article } = context.query;
@@ -167,62 +168,70 @@ export default function Article({
   }, [post.content]);
   return (
     <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        ></meta>
+      </Head>
       <Header categories={categories} language={language} />
       <DarkModeSwitch />
       {post && (
-        <section className={styling.post}>
-          <figure className={styling.figure}>
-            <Image
-              className={styling.image}
-              src={post["featured_image"]}
-              alt=""
-              fill={true}
-            />
-          </figure>
-          <article>
-            <h1>{post.title}</h1>
+        <div className={styling.columnSeparator}>
+          <section className={styling.post}>
+            <figure className={styling.figure}>
+              <Image
+                className={styling.image}
+                src={post["featured_image"]}
+                alt=""
+                fill={true}
+              />
+            </figure>
+            <article>
+              <h1>{post.title}</h1>
 
-            <nav aria-label="Breadcrumb" className={styling.breadcrumbs}>
-              <ol>
-                {post.categories.map((_, index) => (
-                  <BreadCrumb
-                    categories={post.categories}
-                    index={index}
-                    key={index}
-                  />
-                ))}
+              <nav aria-label="Breadcrumb" className={styling.breadcrumbs}>
+                <ol>
+                  {post.categories.map((_, index) => (
+                    <BreadCrumb
+                      categories={post.categories}
+                      index={index}
+                      key={index}
+                    />
+                  ))}
 
-                <li> {post.title}</li>
-              </ol>
-            </nav>
+                  <li> {post.title}</li>
+                </ol>
+              </nav>
 
-            <div className={styling.metaData}>
-              <span>
-                {" "}
-                <UserCircle className={styling.metaIcons} /> {post.author}{" "}
-              </span>
-              <time className={styling.date}>
-                {" "}
-                <Calendar className={styling.metaIcons} />
-                {post.date}{" "}
-              </time>
-            </div>
-            <div />
+              <div className={styling.metaData}>
+                <span>
+                  {" "}
+                  <UserCircle className={styling.metaIcons} /> {post.author}{" "}
+                </span>
+                <time className={styling.date}>
+                  {" "}
+                  <Calendar className={styling.metaIcons} />
+                  {post.date}{" "}
+                </time>
+              </div>
+              <div />
 
-            <p
-              className={styling.content}
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+              <p
+                className={styling.content}
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
 
-            <ShareButtons
-              url={`https://news.labrokes.be/${post.link}`}
-              title={post.title}
-              image={post.featured_image}
-            />
-          </article>
-        </section>
+              <ShareButtons
+                url={`https://news.labrokes.be/${post.link}`}
+                title={post.title}
+                image={post.featured_image}
+              />
+            </article>
+          </section>
+          <aside className={styling.ad} ref={ref}></aside>
+        </div>
       )}
-      <aside className={styling.ad} ref={ref}></aside>
       <SocialNetworks language={language} />
       <Footer language={language} />;
     </>

@@ -15,6 +15,11 @@
     @media @tablet {
       max-width: @maxcontentwidth;
       margin: 0 auto;
+      padding-right: 15px;
+    }
+
+    @media @desktop {
+      padding-right: 0;
     }
   }
 
@@ -32,6 +37,10 @@
   cursor: pointer;
 
   @media @tablet {
+    width: 100px;
+  }
+
+  @media @desktop {
     margin-right: 50px;
     width: 200px;
   }
@@ -87,9 +96,6 @@
     }
   }
 }
-.highlightedLi {
-  margin-bottom: 3px;
-}
 
 .topNavItem {
   height: 40px;
@@ -99,11 +105,21 @@
   font-family: "Roboto";
   font-weight: 600;
   font-size: 14px;
+
+  @media @tablet {
+    font-size: 12px;
+  }
+
+  @media @desktop {
+    font-size: 14px;
+  }
+
   &:hover {
     color: black;
   }
 
   padding-left: 15px;
+
   .highlightedNavItem {
     background: black;
     color: white;
@@ -114,6 +130,7 @@
     align-items: center;
     padding-left: 10px;
     padding-right: 20px;
+
     transform: translateX(-10px);
   }
   .caretDown {
@@ -127,6 +144,15 @@
 
   @media @tablet {
     margin-right: 20px;
+
+    @media @tablet {
+      margin-right: 10px;
+    }
+
+    @media @desktop {
+      margin-right: 20px;
+    }
+
     position: relative;
     &.topNavOpen {
       background: none;
@@ -176,5 +202,17 @@
     background: white;
     display: flex;
     align-items: center;
+  }
+}
+
+.highlightedLi {
+  margin-bottom: 3px;
+
+  @media @tablet {
+    margin-right: 0px;
+  }
+
+  @media @desktop {
+    margin-right: 10px;
   }
 }

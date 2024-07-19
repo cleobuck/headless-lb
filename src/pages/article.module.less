@@ -1,8 +1,22 @@
-@import "@styles/variables/colors.less";
+@import "@styles/variables";
+
+.columnSeparator {
+  max-width: @maxcontentwidth;
+  margin: 0 auto;
+
+  @media @tablet {
+    display: flex;
+  }
+}
 
 .post {
   color: white;
   padding: 10px;
+
+  @media @desktop {
+    width: 66%;
+  }
+
   h1 {
     font-size: 40px;
     font-weight: 600;
@@ -37,8 +51,13 @@
   overflow: hidden;
   position: relative;
   border-radius: 15px;
-  width: 95vw;
+  width: 95%;
+  max-width: @maxcontentwidth;
   height: 250px;
+
+  @media @tablet {
+    height: 500px;
+  }
   margin: 0 auto;
   .image {
     object-fit: cover;
