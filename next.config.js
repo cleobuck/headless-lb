@@ -1,6 +1,21 @@
 const path = require("path");
 const withLess = require("next-with-less");
 
+const envVariables = {
+  development: {
+    API_URL: "https://tblg.redsports.be/",
+    BASE_URL: "http://localhost:3000",
+  },
+  stage: {
+    API_URL: "https://news.ladbrokes.be",
+    BASE_URL: "http://localhost:3000",
+  },
+  production: {
+    API_URL: "https://news.ladbrokes.be",
+    BASE_URL: "https://news.ladbrokes.be",
+  },
+};
+
 module.exports = withLess({
   // reactStrictMode: true,
   lessLoaderOptions: {
@@ -34,17 +49,21 @@ module.exports = withLess({
 
       {
         protocol: "https",
+        hostname: "tblg.redsports.be",
+        port: "", // typically left empty for default ports
+        pathname: "/**", // match all paths under the domain
+      },
+
+      {
+        protocol: "https",
         hostname: "i.ytimg.com",
         port: "", // typically left empty for default ports
         pathname: "/**", // match all paths under the domain
       },
     ],
   },
-
   env: {
-    BASE_URL:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : "https://news.ladbrokes.be",
+    BASE_URL: envVariables[process.env.NODE_ENV].BASE_URL,
+    API_URL: envVariables[process.env.NODE_ENV].API_URL,
   },
 });

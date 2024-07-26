@@ -3,8 +3,8 @@ import { formatCategories } from "./utils";
 
 const _fetch = async (url, custom = false, callback = undefined) => {
   const fullUrl = custom
-    ? `https://news.ladbrokes.be/wp-json/custom/v1/${url}`
-    : `https://news.ladbrokes.be/wp-json/wp/v2/${url}`;
+    ? `${process.env.API_URL}/wp-json/custom/v1/${url}`
+    : `${process.env.API_URL}/wp-json/wp/v2/${url}`;
 
   try {
     const response = await axios.get(fullUrl);

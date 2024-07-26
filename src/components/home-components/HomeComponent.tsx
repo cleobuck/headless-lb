@@ -56,15 +56,11 @@ const HomeComponent = ({
         />
 
         <link rel="canonical" href={canonical} />
-        <link
-          rel="alternate"
-          href="https://news.ladbrokes.be/"
-          hrefLang="fr"
-        ></link>
+        <link rel="alternate" href={process.env.BASE_URL} hrefLang="fr"></link>
 
         <link
           rel="alternate"
-          href="https://news.ladbrokes.be/nl/"
+          href={`${process.env.BASE_URL}/nl`}
           hrefLang="nl"
         ></link>
 

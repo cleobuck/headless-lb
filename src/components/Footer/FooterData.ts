@@ -65,7 +65,7 @@ export const footerData: FooterDataType = {
           href: "https://www.ladbrokes.be/fr/responsible-gambling-f/?_gl=1*14na3w6*_ga*Nzg2NzIyNDM1LjE2ODY1NzExMjc.*_ga_PBFHM7T8JB*MTY4NzI0NzUwMy4xMS4xLjE2ODcyNDc3NDcuMC4wLjA.#!/",
           text: "Jeu responsable",
         },
-        { href: "https://news.ladbrokes.be/contact/", text: "Contacts" },
+        { href: `${process.env.BASE_URL}/contact/`, text: "Contacts" },
       ],
     },
     {
@@ -148,7 +148,7 @@ export const footerData: FooterDataType = {
           text: "Verantwoord spelen",
         },
         {
-          href: "https://news.ladbrokes.be/nl/contact",
+          href: `${process.env.BASE_URL}/nl/contact`,
           text: "Contactgegevens",
         },
       ],
