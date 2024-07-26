@@ -16,8 +16,8 @@ export default function SimilarArticles({ similarArticles, language }: Props) {
       <div className={styling.articles}>
         {similarArticles
           .filter((_, index) => index < 3)
-          .map((article) => (
-            <article onClick={() => router.push(article.link)}>
+          .map((article, key) => (
+            <article key={key} onClick={() => router.push(article.link)}>
               <figure className={styling.figure}>
                 <Image
                   src={article.featured_image}
