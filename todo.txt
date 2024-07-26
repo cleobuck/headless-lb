@@ -1,11 +1,11 @@
-- upload on server
 
 
 - design search page
 - contact page?
 
 
-- add excerpt on desktop category page
 - fix light/dark mode css
 
 - post SEO 
+
+- add homepage description + darkmode

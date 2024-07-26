@@ -1,4 +1,5 @@
 @import "@styles/variables";
+
 .content {
   @media @desktop {
     max-width: 1140px;
@@ -27,12 +28,16 @@
   margin: 0 auto;
 }
 .listAndAside {
-  width: 100vw;
+  width: 100%;
   padding: 10px;
+
+  @media @tablet {
+    display: flex;
+  }
 
   h2,
   h3 {
-    color: white;
+    color: black;
   }
 
   h2 {
@@ -49,8 +54,8 @@
 }
 
 .description {
-  color: white;
-  width: 100vw;
+  color: black;
+  width: 100%;
   font-family: "Roboto";
   font-style: italic;
   font-weight: 400;
@@ -67,12 +72,15 @@
 
 .article {
   display: flex;
-  color: white;
+  color: black;
   padding: 10px;
   figure {
     width: 150px;
     flex: 0 0 150px;
     margin-right: 10px;
+  }
+  p {
+    color: black;
   }
 
   .meta {
@@ -91,5 +99,26 @@
 
   p {
     display: none;
+    font-size: 14px;
+    margin: 15px 0;
+
+    @media @tablet {
+      display: block;
+    }
+  }
+}
+
+:global(.bodyDarkMode) {
+  .content {
+    h2,
+    h3,
+    h4,
+    p {
+      color: white !important; /* Example for dark mode */
+    }
+
+    .article p {
+      color: white !important; /* Example for dark mode */
+    }
   }
 }

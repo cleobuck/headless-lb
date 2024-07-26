@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   height: 125px;
-  color: white;
+  color: black;
   font-family: "Raleway";
   width: 100%;
   gap: 16px;
@@ -67,23 +67,11 @@
 
 .mostRecentPosts {
   h2 {
-    color: white;
+    color: black;
     font-weight: 700;
     font-size: 25px;
     font-family: "Raleway";
     margin: 20px 0;
-  }
-  &.lightMode {
-    .loop {
-      background: black;
-      color: white;
-    }
-    h2 {
-      color: black;
-    }
-    .postItem {
-      color: black;
-    }
   }
 
   @media @tablet {
@@ -105,4 +93,23 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+:global(.bodyDarkMode) {
+  .mostRecentPosts {
+    p.excerpt {
+      color: white;
+    }
+
+    .loop {
+      background: black;
+      color: white;
+    }
+    h2 {
+      color: white;
+    }
+    .postItem {
+      color: white;
+    }
+  }
 }
