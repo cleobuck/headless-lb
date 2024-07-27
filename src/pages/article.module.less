@@ -1,5 +1,10 @@
 @import "@styles/variables";
 
+.darkModeSwitchContainer {
+  max-width: @maxcontentwidth;
+  margin: 0 auto;
+}
+
 .columnSeparator {
   max-width: @maxcontentwidth;
   margin: 0 auto;
@@ -125,4 +130,15 @@
   display: flex;
   justify-content: center;
   width: 100vw;
+}
+
+body:not(:global .bodyDarkMode) {
+  .post {
+    h1,
+    h2,
+    h3,
+    p {
+      color: black;
+    }
+  }
 }

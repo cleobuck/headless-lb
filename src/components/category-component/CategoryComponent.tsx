@@ -113,8 +113,9 @@ export default function CategoryComponent({
         />
       </Head>
       <Header categories={categories} language={language} />
-      <DarkModeSwitch />
       <section className={styling.content}>
+        <DarkModeSwitch />
+
         <div className={styling.listAndAside}>
           <div>
             <h2> {categoryAndPosts.category.parent_category}</h2>

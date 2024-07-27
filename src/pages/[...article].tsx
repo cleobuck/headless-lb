@@ -176,7 +176,9 @@ export default function Article({
         ></meta>
       </Head>
       <Header categories={categories} language={language} />
-      <DarkModeSwitch />
+      <div className={styling.darkModeSwitchContainer}>
+        <DarkModeSwitch />
+      </div>
       {post && (
         <div className={styling.columnSeparator}>
           <section className={styling.post}>

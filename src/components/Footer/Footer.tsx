@@ -10,12 +10,18 @@ type Props = { language: langType };
 const Footer = ({ language }: Props) => {
   return (
     <footer className={styling.footer}>
-      <>
-        {footerData[language].map((column, index) => (
-          <FooterColumn key={index} title={column.title} links={column.links} />
-        ))}
-      </>
-      <p className={styling.statement}> {lawStatement}</p>
+      <div className={styling.footerContent}>
+        <>
+          {footerData[language].map((column, index) => (
+            <FooterColumn
+              key={index}
+              title={column.title}
+              links={column.links}
+            />
+          ))}
+        </>
+        <p className={styling.statement}> {lawStatement}</p>
+      </div>
     </footer>
   );
 };

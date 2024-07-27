@@ -7,7 +7,7 @@
 
   height: 430px;
   max-width: 1139px;
-  width: 80%;
+  width: 100%;
   margin: 100px auto;
   font-family: "Roboto";
   display: flex;
@@ -111,7 +111,7 @@
   }
 }
 
-body:not(.bodyDarkMode) {
+body:not(:global .bodyDarkMode) {
   .container {
     h3,
     h4 {

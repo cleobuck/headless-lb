@@ -16,6 +16,7 @@ import VideoPlaylist from "../VideoPlaylist/VideoPlaylist";
 
 import SearchPage from "../Search/SearchPage";
 import Head from "next/head";
+import Description from "./description/Description";
 
 const HomeComponent = ({
   categories,
@@ -146,6 +147,8 @@ const HomeComponent = ({
           {language === "fr" && <VideoPlaylist videos={videos} />}
 
           <FacebookFeed facebookFeed={facebookFeed} />
+
+          <Description language={language} />
         </div>
       )}
 

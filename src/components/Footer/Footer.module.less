@@ -1,17 +1,26 @@
-@import "@styles/variables/colors.less";
+@import "@styles/variables";
 
 .footer {
   background: @darkGrey;
 
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
+  .footerContent {
+    max-width: @maxcontentwidth;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "Roboto";
+  }
   padding: 50px 20px;
-  font-family: "Roboto";
+
+  width: 100vw;
 }
 
 .column {
   width: 50%;
+
+  @media @tablet {
+    width: 25%;
+  }
   margin-top: 20px;
 }
 
