@@ -115,8 +115,10 @@ function transformDate(inputDate: Date, lang: langType) {
     .padStart(2, "0")}`;
 }
 
-export const timeStampToDate = (timeStamp: number) =>
-  new Date(timeStamp * 1000);
+export const timeStampToDate = (timeStamp: number) => {
+  console.log(timeStamp);
+  return new Date(timeStamp * 1000);
+};
 
 export const createArticleLink = (
   title: string,

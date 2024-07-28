@@ -14,7 +14,6 @@ export default function ContactComponent({
   language,
   authors,
 }: ContactPageTypes) {
-  console.log(authors);
   return (
     <>
       <Head>

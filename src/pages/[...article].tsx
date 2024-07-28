@@ -15,6 +15,7 @@ import {
   beautifyDate,
   createArticleLink,
   getLanguage,
+  replaceLastSlug,
   timeStampToDate,
 } from "@/lib/utils";
 import { GetServerSidePropsContext } from "next";
@@ -101,6 +102,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       post: {
         ...post,
 
+        timestamp: post.date,
         date: beautifyDate(timeStampToDate(post.date), language),
 
         link: createArticleLink(
@@ -139,6 +141,12 @@ export default function Article({
 }) {
   const ref = useRef<HTMLElement>(null);
 
+  const router = useRouter();
+
+  console.log(post);
+
+  const currentUrl = `${process.env.BASE_URL}${router.asPath}`;
+
   useEffect(() => {
     if (ref.current) {
       const script = document.createElement("script");
@@ -166,13 +174,38 @@ export default function Article({
       document.body.appendChild(script);
     }
   }, [post.content]);
+
   return (
     <>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="profile" href="https://gmpg.org/xfn/11" />
         <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        ></meta>
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <link rel="alternate" href={currentUrl} hrefLang={language} />
+        <link
+          rel="alternate"
+          href={`${process.env.BASE_URL}${createArticleLink(
+            post.yoast_meta.translated_slug,
+            timeStampToDate(post.timestamp),
+            language === "fr" ? "nl" : "fr"
+          )}`}
+          hrefLang={language === "fr" ? "nl" : "fr"}
+        />
+        <title> {post.yoast_meta.title}</title>
+        <meta name="description" content={post.yoast_meta.description}></meta>
+        <link rel="canonical" href={post.yoast_meta.canonical || currentUrl} />
+        <meta
+          property="og:locale"
+          content={language === "fr" ? "fr_FR" : "nl_BE"}
+        />
+        <meta
+          property="og:locale: alternate"
+          content={language === "nl" ? "fr_FR" : "nl_BE"}
+        />
+        <meta property="og:type" content="article" />
       </Head>
       <Header categories={categories} language={language} />
       <div className={styling.darkModeSwitchContainer}>

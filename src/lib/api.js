@@ -15,7 +15,7 @@ const _fetch = async (url, custom = false, callback = undefined) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.log("error fetching post", fullUrl);
     return undefined;
   }
 };
@@ -25,6 +25,7 @@ export const fetchPosts = (lang) => {
 };
 
 export const fetchPost = (slug, lang) => {
+  console.log(`post?slug=${slug}&lang=${lang}`);
   return _fetch(`post?slug=${slug}&lang=${lang}`, true);
 };
 

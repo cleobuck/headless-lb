@@ -34,8 +34,27 @@ export type FullPostType = {
   language: string;
   featured_image: string;
   author: string;
-  date: string;
+  date: Date;
   content: string;
   categories: string[];
   link: string;
+  yoast_meta: PostYoastMetaType;
+};
+
+export type PostYoastMetaType = {
+  title: string;
+  description: string;
+  canonical: string;
+  translated_slug: string;
+  opengraph: {
+    title: string;
+    description: string;
+    url: string;
+    image: string;
+  };
+  twitter: {
+    title: string;
+    description: string;
+    image: string;
+  };
 };
