@@ -28,8 +28,6 @@ export default function CategoryComponent({
 
   const [posts, setPosts] = useState(categoryAndPosts.posts);
 
-  console.log(posts);
-
   const [page, setPage] = useState(2);
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {

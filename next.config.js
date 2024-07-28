@@ -60,6 +60,13 @@ module.exports = withLess({
         port: "", // typically left empty for default ports
         pathname: "/**", // match all paths under the domain
       },
+
+      {
+        protocol: "https",
+        hostname: "secure.gravatar.com",
+        port: "", // typically left empty for default ports
+        pathname: "/**", // match all paths under the domain
+      },
     ],
   },
   env: {

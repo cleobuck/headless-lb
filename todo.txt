@@ -1,7 +1,16 @@
 
-
-- design search page
-- contact page?
+- author page 
 
 
 - post SEO 
+
+- add tooltip
+
+- fix excerpt + number for most recent posts for date when clicking on load more 
+
+
+
+- pomodoro 2: design search page and contact page 
+- pomodoro 3: post SEO
+- pomodoro 4 : check last seo 
+- pomodo 5: last checks

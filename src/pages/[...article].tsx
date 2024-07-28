@@ -139,7 +139,6 @@ export default function Article({
 }) {
   const ref = useRef<HTMLElement>(null);
 
-  console.log(post);
   useEffect(() => {
     if (ref.current) {
       const script = document.createElement("script");

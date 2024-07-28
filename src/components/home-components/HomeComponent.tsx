@@ -120,7 +120,7 @@ const HomeComponent = ({
       <Header categories={categories} language={language} />
 
       {searchResults ? (
-        <SearchPage searchResults={searchResults} />
+        <SearchPage searchResults={searchResults} language={language} />
       ) : (
         <div className={styling.home}>
           <div className="content">

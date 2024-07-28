@@ -13,7 +13,7 @@ export type HomeTypes = {
   facebookFeed: string;
   head: HeadType;
   videos: VideoType[];
-  searchResults: any;
+  searchResults: SearchResult[];
 };
 
 export interface HeadType {
@@ -71,3 +71,11 @@ export interface HeadType {
     }[];
   };
 }
+
+export type SearchResult = {
+  title: string;
+  date: number;
+  featuredImage: string;
+  featuredImageAlt: string;
+  excerpt: string;
+};

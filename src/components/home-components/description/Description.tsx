@@ -20,16 +20,16 @@ export default function Description({ language }: Props) {
         <>
           <p>
             Bienvenue sur Ladbrokes.be News, notre site d’actualité sportive et
-            <a href={link}>paris sportifs </a>– votre source incontournable pour
-            tout ce qui touche au monde passionnant du sport et des{" "}
-            <a href={link}>paris en ligne</a>! Que vous soyez un amateur de
+            <a href={link}> paris sportifs </a>– votre source incontournable
+            pour tout ce qui touche au monde passionnant du sport et des{" "}
+            <a href={link}>paris en ligne </a>! Que vous soyez un amateur de
             sport, un parieur averti ou simplement curieux des dernières
             nouvelles sportives, nous sommes là pour vous tenir informés,
             divertis et bien plus encore
           </p>
           <p>
             Plongez dans un océan d’articles riches en contenu, couvrant les
-            <a href={link}>derniers événements sportifs </a>, les résultats en
+            <a href={link}> derniers événements sportifs</a>, les résultats en
             direct, les analyses approfondies, et les entrevues exclusives avec
             les athlètes et les experts du domaine. Notre équipe de rédacteurs
             passionnés est dévouée à vous fournir des informations pertinentes
@@ -39,7 +39,7 @@ export default function Description({ language }: Props) {
 
           <p>
             {" "}
-            En matière de <a href={link}>paris sportifs </a>, nous vous offrons
+            En matière de <a href={link}>paris sportifs</a>, nous vous offrons
             une expérience unique en son genre. Que vous soyez un débutant ou un
             parieur chevronné, notre section dédiée aux paris sportifs vous
             propose des conseils avisés, des prédictions éclairées et des
@@ -101,10 +101,12 @@ export default function Description({ language }: Props) {
             biedt deskundig advies, voorspellingen en tips om je kansen op
             succes te verbeteren. We dekken een breed scala aan sporten, van de
             <a href="https://news.ladbrokes.be/nl/category/voetbal-nl/">
-              populairste
+              {" "}
+              populairste{" "}
             </a>
             tot de
             <a href="https://news.ladbrokes.be/nl/category/andere-sporten/">
+              {" "}
               meest niche sporten
             </a>
             , zodat je met vertrouwen en strategie kunt genieten van

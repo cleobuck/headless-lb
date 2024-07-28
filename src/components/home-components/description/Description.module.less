@@ -16,4 +16,22 @@
     line-height: 24px;
     margin-bottom: 14px;
   }
+
+  a {
+    color: @red;
+  }
+
+  h2,
+  p {
+    color: white;
+  }
+}
+
+body:not(:global .bodyDarkMode) {
+  .description {
+    h2,
+    p {
+      color: black;
+    }
+  }
 }

@@ -25,7 +25,6 @@ export const fetchPosts = (lang) => {
 };
 
 export const fetchPost = (slug, lang) => {
-  console.log(`post?slug=${slug}&lang=${lang}`);
   return _fetch(`post?slug=${slug}&lang=${lang}`, true);
 };
 
@@ -75,10 +74,6 @@ export const fetchFacebookFeeds = async (lang) => {
   return await _fetch(`facebook-feed-content?lang=${lang}`, true);
 };
 
-export const searchArticles = async (searchPhrase) => {
-  return await _fetch(`posts?search=${searchPhrase}`);
-};
-
 export const getYoutubePlaylist = async () => {
   return await _fetch(`youtube-playlist`, true);
 };
@@ -87,25 +82,10 @@ export const fetchPageMetaData = async (id) => {
   return await _fetch(`pages/${id}`);
 };
 
-// export const getYoutubePlaylist = async () => {
-//   const apiKey = "AIzaSyBwU5PjF4KWwS7eEyQ8CNHfaVIDq25Ni1M"; // Replace with your actual API key
-//   const channelId = "UCtpikuBhVyc0sjiOmAsJE7Q"; // Replace with the ID of the YouTube channel
-//   const maxResults = 20; // Number of videos to fetch
+export const fetchAuthors = async () => {
+  return await _fetch("authors", true);
+};
 
-//   const excludedTerms = ["Shorts.", "Short."]; // List of terms to exclude
-
-//   // Construct the excluded terms part of the query
-//   const excludedQuery = excludedTerms.map((term) => `-${term}`).join(" ");
-
-//   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=${maxResults}&order=date&type=video&q=${excludedQuery}&key=${apiKey}`;
-
-//   console.log(url);
-//   try {
-//     const response = await axios.get(url);
-
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//     return undefined;
-//   }
-// };
+export const search = async (query) => {
+  return await _fetch(`search?query=${query}`, true);
+};

@@ -12,7 +12,7 @@ import {
   fetchMostRecentPosts,
   fetchFacebookFeeds,
   getYoutubePlaylist,
-  searchArticles,
+  search,
   fetchPageMetaData,
 } from "./api";
 import { GetServerSidePropsContext } from "next";
@@ -47,7 +47,7 @@ export default async function getServerSideProps(
   let searchResults = "";
 
   if (searchTerm) {
-    searchResults = await searchArticles(searchTerm);
+    searchResults = await search(searchTerm);
   }
 
   const categories = await fetchCategories(language);
