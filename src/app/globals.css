@@ -31,3 +31,23 @@ body {
     text-wrap: balance;
   }
 }
+
+#top-match-container .tew {
+  margin-top: 1em;
+}
+
+#top-match-container .tew-title {
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  #top-match-container .tew {
+    font-size: 9px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #top-match-container .tew {
+    font-size: 14px;
+  }
+}
