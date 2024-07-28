@@ -128,9 +128,12 @@ export const createArticleLink = (
     // Replace accented characters with their non-accented equivalents
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    // Remove non-alphanumeric characters except spaces and hyphens
-    .replace(/[^a-z0-9\s-]/g, "");
-  title = title.replace(/\s+/g, "-"); // Replace spaces with hyphens
+    // Remove non-alphanumeric characters except spaces, hyphens, and slashes
+    .replace(/[^a-z0-9\s/-]/g, "")
+    // Replace spaces with hyphens
+    .replace(/\s+/g, "-")
+    // Replace slashes with hyphens
+    .replace(/\//g, "-");
 
   // Construct the URL
   const url = `${lang === "nl" ? "/nl" : ""}/${transformDate(
