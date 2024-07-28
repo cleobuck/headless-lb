@@ -7,3 +7,14 @@
 - pomodoro 3: post SEO
 - pomodoro 4 : check last seo 
 - pomodo 5: last checks
+
+
+
+Array.from(document.querySelectorAll('*')).forEach(el => {
+  if (el.offsetWidth > document.documentElement.clientWidth) {
+    el.style.outline = '2px solid blue'; 
+    console.log(el);
+      console.log("element width" ,el.offsetWidth);
+      console.log("document width", document.documentElement.clientWidth);
+  }
+});
