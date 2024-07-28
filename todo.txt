@@ -4,8 +4,4 @@
 - contact page?
 
 
-- fix light/dark mode css
-
 - post SEO 
-
-- add homepage description + darkmode
