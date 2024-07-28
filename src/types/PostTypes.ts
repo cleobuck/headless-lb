@@ -34,7 +34,8 @@ export type FullPostType = {
   language: string;
   featured_image: string;
   author: string;
-  date: Date;
+  date: string;
+  timestamp: number;
   content: string;
   categories: string[];
   link: string;

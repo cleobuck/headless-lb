@@ -15,7 +15,6 @@ import {
   beautifyDate,
   createArticleLink,
   getLanguage,
-  replaceLastSlug,
   timeStampToDate,
 } from "@/lib/utils";
 import { GetServerSidePropsContext } from "next";
@@ -142,8 +141,6 @@ export default function Article({
   const ref = useRef<HTMLElement>(null);
 
   const router = useRouter();
-
-  console.log(post);
 
   const currentUrl = `${process.env.BASE_URL}${router.asPath}`;
 
