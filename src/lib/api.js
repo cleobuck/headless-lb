@@ -25,7 +25,6 @@ export const fetchPosts = (lang) => {
 };
 
 export const fetchPost = (slug, lang) => {
-  console.log(`post?slug=${slug}&lang=${lang}`);
   return _fetch(`post?slug=${slug}&lang=${lang}`, true);
 };
 

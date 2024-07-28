@@ -116,7 +116,6 @@ function transformDate(inputDate: Date, lang: langType) {
 }
 
 export const timeStampToDate = (timeStamp: number) => {
-  console.log(timeStamp);
   return new Date(timeStamp * 1000);
 };
 
@@ -146,15 +145,20 @@ export const createArticleLink = (
   return url;
 };
 
-export const loadScript = (src: string) => {
+export const loadScript = (src: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
-    script.type = "text/javascript";
     script.async = true;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
+    script.onload = () => {
+      console.log(`Script ${src} loaded successfully`);
+      resolve();
+    };
+    script.onerror = () => {
+      console.error(`Failed to load script ${src}`);
+      reject(new Error(`Failed to load script ${src}`));
+    };
+    document.body.appendChild(script);
   });
 };
 

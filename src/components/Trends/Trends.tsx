@@ -1,6 +1,6 @@
+import { useEffect, useRef } from "react";
 import { loadScript } from "@/lib/utils";
 import { langType } from "@/types/generalTypes";
-import React, { useEffect, useRef } from "react";
 
 type Props = {
   language: langType;
@@ -13,15 +13,23 @@ export default function Trends({ language }: Props) {
     // Function to dynamically load the external script
     const loadTopMatchWidgetScript = async () => {
       try {
+        console.log("Loading script...");
         await loadScript("https://ccp.lmms.be/top-match/top-match.js");
-        if (topMatchContainerRef.current) {
-          // Initialize the TopMatchWidget after the script has loaded
+        console.log("Script loaded");
 
+        if (topMatchContainerRef.current) {
+          console.log("Initializing TopMatchWidget...");
           // @ts-ignore
-          new TopMatchWidget({
-            language,
-            targetElementId: "top-match-container",
-          });
+          if (typeof TopMatchWidget !== "undefined") {
+            // @ts-ignore
+            new TopMatchWidget({
+              language,
+              targetElementId: topMatchContainerRef.current.id,
+            });
+            console.log("TopMatchWidget initialized");
+          } else {
+            console.error("TopMatchWidget is not defined");
+          }
         } else {
           console.error("Top-match-container is not rendered yet.");
         }
@@ -30,10 +38,7 @@ export default function Trends({ language }: Props) {
       }
     };
 
-    // Load the script only if the top-match-container is rendered
-    if (topMatchContainerRef.current) {
-      loadTopMatchWidgetScript();
-    }
+    loadTopMatchWidgetScript();
   }, [language]);
 
   return <div id="top-match-container" ref={topMatchContainerRef}></div>;
