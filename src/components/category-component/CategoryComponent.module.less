@@ -25,6 +25,7 @@
   display: flex;
   justify-content: center;
   width: 90vw;
+
   margin: 0 auto;
 }
 .listAndAside {
@@ -33,6 +34,11 @@
 
   @media @tablet {
     display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    .ad {
+      width: 320px;
+    }
   }
 
   h2,
@@ -86,26 +92,38 @@
   .meta {
     display: flex;
     flex-direction: column;
+    height: 125px;
+    gap: 5px;
     justify-content: space-between;
+    time {
+      flex: 0;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    p.excerpt {
+      display: none;
+      font-size: 14px;
+      margin: 0;
+      flex: 1;
+      width: calc(100%);
+      overflow: hidden;
+      /* Add ellipsis for overflow text */
+      line-height: 21px;
+
+      -webkit-box-orient: vertical;
+      @media @tablet {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+      }
+    }
+    h4 {
+      flex: 0;
+    }
   }
 
   font-size: 18px;
-  time {
-    flex: 1;
-    font-size: 12px;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  p {
-    display: none;
-    font-size: 14px;
-    margin: 15px 0;
-
-    @media @tablet {
-      display: block;
-    }
-  }
 }
 
 :global(.bodyDarkMode) {
@@ -113,7 +131,9 @@
     h2,
     h3,
     h4,
-    p {
+    time,
+    p,
+    .description {
       color: white !important; /* Example for dark mode */
     }
 

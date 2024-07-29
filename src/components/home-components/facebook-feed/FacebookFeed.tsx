@@ -7,6 +7,7 @@ export default function FacebookFeed({ facebookFeed }: Props) {
     <div
       className="facebook-feed"
       dangerouslySetInnerHTML={{ __html: facebookFeed }}
+      suppressHydrationWarning
     />
   );
 }

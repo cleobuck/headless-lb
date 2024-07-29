@@ -11,12 +11,14 @@
 
   @media @tablet {
     display: flex;
+    justify-content: space-between;
   }
 }
 
 .post {
   color: white;
   padding: 10px;
+  padding-top: 0;
 
   @media @desktop {
     width: 66%;
@@ -128,8 +130,12 @@
 
 .ad {
   display: flex;
-  justify-content: center;
+  justify-content: stretch;
   width: 100vw;
+
+  @media @tablet {
+    flex: 0 0 320px;
+  }
 }
 
 body:not(:global .bodyDarkMode) {
@@ -137,6 +143,7 @@ body:not(:global .bodyDarkMode) {
     h1,
     h2,
     h3,
+    li,
     p {
       color: black;
     }

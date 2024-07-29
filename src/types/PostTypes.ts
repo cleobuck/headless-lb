@@ -20,7 +20,7 @@ export interface AdBannerType {
 
 export interface CategoryPostType {
   category: string;
-  date: string;
+  date: number;
   excerpt: string;
   featured_image: string;
   id: number;
@@ -35,6 +35,8 @@ export type FullPostType = {
   featured_image: string;
   author: string;
   date: string;
+  modifiedTimestamp: number;
+  modified_date: string;
   timestamp: number;
   content: string;
   categories: string[];
@@ -47,15 +49,20 @@ export type PostYoastMetaType = {
   description: string;
   canonical: string;
   translated_slug: string;
-  opengraph: {
+  og: {
     title: string;
     description: string;
     url: string;
     image: string;
+    site_name: string;
+    publisher: string;
   };
   twitter: {
     title: string;
     description: string;
     image: string;
+    card: string;
+    site: string;
+    reading_time: string;
   };
 };

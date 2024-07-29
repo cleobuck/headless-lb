@@ -6,6 +6,7 @@ import Trends from "@/components/Trends/Trends";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import styling from "./HomeComponent.module.less";
+import Script from "next/script";
 
 import { HomeTypes } from "@/types/HomeTypes";
 import SocialNetworks from "../social-networks/SocialNetworks";
@@ -28,6 +29,7 @@ const HomeComponent = ({
   facebookFeed,
   videos,
   searchResults,
+  eventsData,
   head,
 }: HomeTypes) => {
   const {
@@ -46,6 +48,7 @@ const HomeComponent = ({
     article_publisher,
     article_modified_time,
   } = head;
+
   return (
     <>
       <Head>
@@ -110,12 +113,6 @@ const HomeComponent = ({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMA4gOZ6zAQlQH7aOcC2JwvjA4QZerTPB68DJVf"
-          crossOrigin="anonymous"
-        />
       </Head>
       <Header categories={categories} language={language} />
 
@@ -140,7 +137,7 @@ const HomeComponent = ({
                   language={language}
                 />
 
-                <Trends language={language} />
+                <Trends language={language} eventsData={eventsData} />
               </div>
             </section>
           </div>

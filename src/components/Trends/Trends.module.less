@@ -1,0 +1,167 @@
+.tew {
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  margin-top: 20px;
+}
+.tewHeader {
+  font-size: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.tewTitle {
+  color: white;
+  font-size: 0.875em;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+body:not(:global .bodyDarkMode) {
+  .tewTitle {
+    color: black;
+  }
+}
+.tewButtons {
+  font-size: 1em;
+  display: flex;
+}
+.tewButton {
+  background-color: rgba(255, 0, 0, 0.43);
+  width: 0.825em;
+  height: 0.825em;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.tewButtonPrev {
+  margin-right: 0.375em;
+}
+.tewButtonActive {
+  background-color: #f01e28;
+}
+.tewCompetitonGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.tewCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  box-shadow: 0rem 0.25rem 1.25rem rgba(149, 157, 165, 0.2);
+  transition: 0.3s;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  &:hover {
+    background-color: #fdd;
+  }
+}
+
+.tewIcon {
+  display: block;
+  width: 2.25em;
+  height: 2.25em;
+}
+.tewContent {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0.625em;
+}
+.tewContentCompetition {
+  margin-right: 0;
+}
+.tewName {
+  color: #000;
+  font-size: 0.8em;
+  font-style: normal;
+  line-height: 1em;
+  flex: 1;
+  text-align: start;
+}
+.tewNameRight {
+  text-align: end;
+}
+.tewStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.625em;
+  border-radius: 0.2em;
+  min-width: 3.8em;
+  min-height: 2em;
+  padding: 0 0.5em;
+  margin: 0 0.5em;
+}
+.tewStatusLive {
+  background-color: #f01e28;
+}
+.tewLeague {
+  position: absolute;
+  font-size: 0.625em;
+  top: 2px;
+  left: 50%;
+  color: #000;
+  transform: translate(-50%, 0);
+}
+.tewLeagueCompetition {
+  position: static;
+  transform: none;
+}
+.tew > .swiperWrapper {
+  display: inline-flex;
+}
+.tewFooter {
+  padding: 0.75em;
+  display: flex;
+  justify-content: center;
+}
+.topEventWidget {
+  padding: 1em 0.5em;
+}
+a.tewCard {
+  text-decoration: none;
+}
+
+.tewWrapper {
+  width: 100%;
+  overflow-x: scroll;
+
+  .tewList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 8px;
+    // height: 288px;
+
+    @parentHeight: 100%;
+    @subtractedValue: 32px;
+    @divisor: 5;
+
+    .tewCard {
+      height: 55px;
+    }
+
+    // .tewCard {
+    //   height: calc((@parentHeight - @subtractedValue) / @divisor);
+    // }
+  }
+}

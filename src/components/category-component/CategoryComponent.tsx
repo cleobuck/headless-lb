@@ -6,7 +6,7 @@ import { CategoryPostType } from "@/types/PostTypes";
 
 import { CategoryPageServerDataType } from "@/types/CategoryTypes";
 import SocialNetworks from "@/components/social-networks/SocialNetworks";
-import { processContent } from "@/lib/utils";
+import { beautifyDate, processContent, timeStampToDate } from "@/lib/utils";
 import Image from "next/image";
 
 import DarkModeSwitch from "@/components/DarkModeSwitch/DarkModeSwitch";
@@ -133,7 +133,13 @@ export default function CategoryComponent({
                   page
                 );
 
-                setPosts((posts) => [...posts, ...morePosts.posts]);
+                setPosts((posts) => [
+                  ...posts,
+                  ...morePosts.posts.map((post: CategoryPostType) => ({
+                    ...post,
+                    date: beautifyDate(timeStampToDate(post.date), language),
+                  })),
+                ]);
                 setPage((page) => page + 1);
               }}
             />
@@ -156,6 +162,17 @@ export default function CategoryComponent({
 }
 
 const Article = ({ post }: { post: CategoryPostType }) => {
+  const excerptRef = useRef<HTMLParagraphElement>(null);
+  const [numOfLines, setNumOfLines] = useState(0);
+
+  useEffect(() => {
+    if (excerptRef.current) {
+      const computedStyle = window.getComputedStyle(excerptRef.current);
+      const lineHeight = parseFloat(computedStyle.lineHeight);
+      setNumOfLines(Math.ceil(excerptRef.current.clientHeight / lineHeight));
+    }
+  }, []);
+
   const router = useRouter();
   return (
     <article
@@ -176,7 +193,13 @@ const Article = ({ post }: { post: CategoryPostType }) => {
       <div className={styling.meta}>
         <h4> {post.title} </h4>
 
-        <p> {post.excerpt} </p>
+        <p
+          className={styling.excerpt}
+          ref={excerptRef}
+          style={{ WebkitLineClamp: numOfLines }}
+        >
+          {post.excerpt}
+        </p>
 
         <time className={styling.date}> {post.date} </time>
       </div>

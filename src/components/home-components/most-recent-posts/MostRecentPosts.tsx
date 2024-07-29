@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styling from "./MostRecentPosts.module.less";
 type Props = { language: langType; mostRecentPosts: ArticleType[] };
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { langType } from "@/types/generalTypes";
 import { ArticleType } from "@/types/PostTypes";
 import { fetchMostRecentPosts } from "@/lib/api";
 import LoadMore from "@/components/LoadMore/LoadMore";
+import { beautifyDate, timeStampToDate } from "@/lib/utils";
 
 export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
   const [posts, setPosts] = useState(mostRecentPosts);
@@ -27,7 +28,13 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
         onClick={async () => {
           const morePosts = await fetchMostRecentPosts(language, page);
 
-          setPosts((posts) => [...posts, ...morePosts]);
+          setPosts((posts) => [
+            ...posts,
+            ...morePosts.map((post: ArticleType) => ({
+              ...post,
+              date: beautifyDate(timeStampToDate(post.date), language),
+            })),
+          ]);
           setPage((page) => page + 1);
         }}
         language={language}
@@ -37,6 +44,18 @@ export default function MostRecentPosts({ mostRecentPosts, language }: Props) {
 }
 
 const Post = ({ post }: { post: ArticleType }) => {
+  const excerptRef = useRef<HTMLParagraphElement>(null);
+
+  const [numOfLines, setNumOfLines] = useState(0);
+
+  useEffect(() => {
+    if (excerptRef.current) {
+      const computedStyle = window.getComputedStyle(excerptRef.current);
+      const lineHeight = parseFloat(computedStyle.lineHeight);
+      setNumOfLines(Math.ceil(excerptRef.current.clientHeight / lineHeight));
+    }
+  }, []);
+
   const router = useRouter();
   return (
     <article
@@ -53,7 +72,13 @@ const Post = ({ post }: { post: ArticleType }) => {
           <span className={styling.category}> {post.category} </span>
           <h3 className={styling.title}> {post.title} </h3>
         </header>
-        <p className={styling.excerpt}> {post.excerpt} </p>
+        <p
+          className={styling.excerpt}
+          ref={excerptRef}
+          style={{ WebkitLineClamp: numOfLines }}
+        >
+          {post.excerpt}
+        </p>
         <time className={styling.date}> {post.date} </time>
       </div>
     </article>

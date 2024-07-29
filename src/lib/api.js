@@ -89,3 +89,16 @@ export const fetchAuthors = async () => {
 export const search = async (query) => {
   return await _fetch(`search?query=${query}`, true);
 };
+
+export const fetchEvents = async (language) => {
+  try {
+    const response = await axios.get(
+      `https://dcp.lmms.be/api/top-events-widget/get-upcoming-events/${language}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log("error fetching post", fullUrl);
+    return undefined;
+  }
+};

@@ -102,6 +102,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         ...post,
 
         timestamp: post.date,
+        modifiedTimestamp: post.modified_date,
         date: beautifyDate(timeStampToDate(post.date), language),
 
         link: createArticleLink(
@@ -199,10 +200,61 @@ export default function Article({
           content={language === "fr" ? "fr_FR" : "nl_BE"}
         />
         <meta
-          property="og:locale: alternate"
+          property="og:locale:alternate"
           content={language === "nl" ? "fr_FR" : "nl_BE"}
         />
         <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.yoast_meta.og.title} />
+        <meta
+          property="og:description"
+          content={post.yoast_meta.og.description}
+        />
+        <meta
+          property="og:url"
+          content={post.yoast_meta.og.url || currentUrl}
+        />
+        <meta property="og:site_name" content={post.yoast_meta.og.site_name} />
+        <meta
+          property="article:publisher"
+          content={post.yoast_meta.og.publisher}
+        />
+        <meta
+          property="article:published_time"
+          content={timeStampToDate(post.timestamp)
+            .toISOString()
+            .replace("Z", "+00:00")}
+        />
+        <meta
+          property="article:modified_time"
+          content={timeStampToDate(post.modifiedTimestamp)
+            .toISOString()
+            .replace("Z", "+00:00")}
+        />
+        <meta property="og:image" content={post.yoast_meta.og.image}></meta>
+        <meta property="og:image:width" content="2560" />
+        <meta property="og:image:height" content="1707" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta name="author" content={post.author} />
+        <meta name="twitter:card" content={post.yoast_meta.twitter.card} />
+        <meta name="twitter:creator" content={post.yoast_meta.twitter.site} />
+        <meta name="twitter:site" content={post.yoast_meta.twitter.site} />
+        <meta
+          name="twitter:label1"
+          content={language === "fr" ? "Écrit par" : "Geschreven door"}
+        />
+        <meta name="twitter:data1" content={post.author} />
+        <meta
+          name="twitter:label2"
+          content={
+            language === "fr" ? "Durée de lecture est " : "Geschatte leestijd"
+          }
+        />
+        <meta
+          name="twitter:data2"
+          content={`${post.yoast_meta.twitter.reading_time} ${
+            language === "fr" ? "minutes" : "minuten"
+          }`}
+        />
       </Head>
       <Header categories={categories} language={language} />
       <div className={styling.darkModeSwitchContainer}>
@@ -249,9 +301,10 @@ export default function Article({
               </div>
               <div />
 
-              <p
+              <div
                 className={styling.content}
                 dangerouslySetInnerHTML={{ __html: post.content }}
+                suppressHydrationWarning
               />
 
               <ShareButtons

@@ -13,6 +13,7 @@ export type HomeTypes = {
   facebookFeed: string;
   head: HeadType;
   videos: VideoType[];
+  eventsData: EventsDataType;
   searchResults: SearchResult[];
 };
 
@@ -78,4 +79,24 @@ export type SearchResult = {
   featuredImage: string;
   featuredImageAlt: string;
   excerpt: string;
+};
+
+export type EventsDataType = {
+  translations: {
+    [key: string]: string;
+  };
+  events: EventType[];
+};
+
+export type EventType = {
+  team_home: string;
+  team_away: string;
+  home_image: string;
+  away_image: string;
+  meetingDescription: string;
+  headToHead: string;
+  eventDescription: string;
+  live: number;
+  aliasUrl: string;
+  eventDate: string;
 };

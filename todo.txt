@@ -1,12 +1,11 @@
 
 - author page 
-- post SEO 
 - add tooltip
-- fix excerpt + number for most recent posts for date when clicking on load more 
+- check performance
+- check SEO (lighthouse)
+- sitemap?
 
-- pomodoro 3: post SEO
-- pomodoro 4 : check last seo 
-- pomodo 5: last checks
+
 
 
 

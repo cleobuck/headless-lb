@@ -9,6 +9,7 @@
   width: 100%;
   gap: 16px;
   cursor: pointer;
+  padding: 10px 0;
 
   margin-bottom: 16px;
   .figure {
@@ -31,18 +32,29 @@
 
 .metaData {
   display: flex;
+
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
   height: 125px;
   flex: 1;
+  gap: 5px;
+
+  .titleAndCategory {
+    flex: 0;
+  }
   .category {
     font-size: 11px;
     color: #f01e28;
     font-weight: 700;
+    line-height: 16.5px;
   }
   .title {
     font-size: 15px;
+
+    @media @tablet {
+      font-size: 18px;
+    }
     margin: 0;
     font-weight: 800;
   }
@@ -55,7 +67,7 @@
   overflow: hidden;
   width: 100%;
   text-overflow: ellipsis; /* Add ellipsis for overflow text */
-
+  line-height: 21px;
   display: -webkit-box;
 
   -webkit-box-orient: vertical;
@@ -63,6 +75,7 @@
 
 .date {
   font-size: 14px;
+  flex: 0;
 }
 
 .mostRecentPosts {
