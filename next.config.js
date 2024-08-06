@@ -7,8 +7,8 @@ const envVariables = {
     BASE_URL: "http://localhost:3000",
   },
   stage: {
-    API_URL: "https://news.ladbrokes.be",
-    BASE_URL: "http://localhost:3000",
+    API_URL: "https://tblg.redsports.be/",
+    BASE_URL: "https://ladbrokesdice.netlify.app/",
   },
   production: {
     API_URL: "https://news.ladbrokes.be",
