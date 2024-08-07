@@ -18,8 +18,8 @@ export default function Trends({ language, eventsData }: Props) {
       </div>
       <div className={`${styling.tewWrapper}`}>
         <div className={`${styling.tewList}  `}>
-          {eventsData.events.map((event: EventType) => (
-            <Card event={event} />
+          {eventsData.events.map((event: EventType, key) => (
+            <Card key={key} event={event} />
           ))}
         </div>
       </div>
